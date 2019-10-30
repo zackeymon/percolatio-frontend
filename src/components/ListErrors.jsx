@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ListErrors(props) {
+const ListErrors = (props) => {
   const { errors } = props;
   if (errors) {
     return (
@@ -18,6 +18,6 @@ function ListErrors(props) {
     );
   }
   return null;
-}
+};
 
 export default ListErrors;
