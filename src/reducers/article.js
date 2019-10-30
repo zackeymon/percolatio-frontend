@@ -23,12 +23,13 @@ export default (state = {}, action) => {
           ? null
           : (state.comments || []).concat([action.payload.comment]),
       };
-    case DELETE_COMMENT:
+    case DELETE_COMMENT: {
       const { commentId } = action;
       return {
         ...state,
         comments: state.comments.filter((comment) => comment.id !== commentId),
       };
+    }
     default:
       return state;
   }
