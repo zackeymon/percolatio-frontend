@@ -1,39 +1,39 @@
+import { connect } from 'react-redux';
+import React from 'react';
 import Banner from './Banner';
 import MainView from './MainView';
-import React from 'react';
 import Tags from './Tags';
-import agent from '../../agent';
-import { connect } from 'react-redux';
+import agent from 'agent';
 import {
   HOME_PAGE_LOADED,
   HOME_PAGE_UNLOADED,
-  APPLY_TAG_FILTER
-} from '../../constants/actionTypes';
+  APPLY_TAG_FILTER,
+} from 'constants/actionTypes';
 
-const Promise = global.Promise;
+const { Promise } = global;
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   ...state.home,
   appName: state.common.appName,
-  token: state.common.token
+  token: state.common.token,
 });
 
-const mapDispatchToProps = dispatch => ({
-  onClickTag: (tag, pager, payload) =>
-    dispatch({ type: APPLY_TAG_FILTER, tag, pager, payload }),
-  onLoad: (tab, pager, payload) =>
-    dispatch({ type: HOME_PAGE_LOADED, tab, pager, payload }),
-  onUnload: () =>
-    dispatch({  type: HOME_PAGE_UNLOADED })
+const mapDispatchToProps = (dispatch) => ({
+  onClickTag: (tag, pager, payload) => dispatch({
+    type: APPLY_TAG_FILTER, tag, pager, payload,
+  }),
+  onLoad: (tab, pager, payload) => dispatch({
+    type: HOME_PAGE_LOADED, tab, pager, payload,
+  }),
+  onUnload: () => dispatch({
+    type: HOME_PAGE_UNLOADED,
+  }),
 });
 
 class Home extends React.Component {
   componentWillMount() {
     const tab = this.props.token ? 'feed' : 'all';
-    const articlesPromise = this.props.token ?
-      agent.Articles.feed :
-      agent.Articles.all;
-
+    const articlesPromise = this.props.token ? agent.Articles.feed : agent.Articles.all;
     this.props.onLoad(tab, articlesPromise, Promise.all([agent.Tags.getAll(), articlesPromise()]));
   }
 

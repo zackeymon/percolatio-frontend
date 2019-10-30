@@ -64,7 +64,7 @@ const Articles = {
 
 const Grants = {
   all: (page) => requests.get(`/grants?${limit(10, page)}`),
-}
+};
 
 const Comments = {
   create: (slug, comment) => requests.post(`/articles/${slug}/comments`, { comment }),
