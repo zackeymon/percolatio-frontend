@@ -1,16 +1,17 @@
 import React from 'react';
-import agent from '../../agent';
+import agent from 'agent';
 
-const Tags = props => {
-  const tags = props.tags;
+const Tags = (props) => {
+  const { tags } = props;
   if (tags) {
     return (
       <div className="tag-list">
         {
-          tags.map(tag => {
-            const handleClick = ev => {
+          tags.map((tag) => {
+            const handleClick = (ev) => {
               ev.preventDefault();
-              props.onClickTag(tag, page => agent.Articles.byTag(tag, page), agent.Articles.byTag(tag));
+              props.onClickTag(tag, (page) => agent.Articles.byTag(tag, page), 
+                agent.Articles.byTag(tag));
             };
 
             return (
@@ -26,11 +27,8 @@ const Tags = props => {
         }
       </div>
     );
-  } else {
-    return (
-      <div>Loading Tags...</div>
-    );
   }
+  return (<div>Loading Tags...</div>);
 };
 
 export default Tags;
