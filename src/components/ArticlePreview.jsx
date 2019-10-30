@@ -47,7 +47,7 @@ const ArticlePreview = (props) => {
         </div>
 
         <div className="pull-xs-right">
-          <button className={favoriteButtonClass} onClick={handleClick}>
+          <button type="button" className={favoriteButtonClass} onClick={handleClick}>
             <i className="ion-heart" />
             {' '}
             {article.favoritesCount}
@@ -63,8 +63,8 @@ const ArticlePreview = (props) => {
           {
             article.tagList.map((tag) => (
               <li className="tag-default tag-pill tag-outline" key={tag}>
-                  {tag}
-                </li>
+                {tag}
+              </li>
             ))
           }
         </ul>
