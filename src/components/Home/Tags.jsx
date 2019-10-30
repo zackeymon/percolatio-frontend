@@ -10,7 +10,7 @@ const Tags = (props) => {
           tags.map((tag) => {
             const handleClick = (ev) => {
               ev.preventDefault();
-              props.onClickTag(tag, (page) => agent.Articles.byTag(tag, page), 
+              props.onClickTag(tag, (page) => agent.Articles.byTag(tag, page),
                 agent.Articles.byTag(tag));
             };
 
@@ -19,7 +19,8 @@ const Tags = (props) => {
                 href=""
                 className="tag-default tag-pill"
                 key={tag}
-                onClick={handleClick}>
+                onClick={handleClick}
+              >
                 {tag}
               </a>
             );

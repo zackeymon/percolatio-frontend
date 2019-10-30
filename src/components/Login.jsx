@@ -1,33 +1,30 @@
 import { Link } from 'react-router-dom';
-import ListErrors from './ListErrors';
 import React from 'react';
-import agent from '../agent';
+import agent from 'agent';
 import { connect } from 'react-redux';
 import {
   UPDATE_FIELD_AUTH,
   LOGIN,
-  LOGIN_PAGE_UNLOADED
-} from '../constants/actionTypes';
+  LOGIN_PAGE_UNLOADED,
+} from 'constants/actionTypes';
+import ListErrors from './ListErrors';
 
-const mapStateToProps = state => ({ ...state.auth });
 
-const mapDispatchToProps = dispatch => ({
-  onChangeEmail: value =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'email', value }),
-  onChangePassword: value =>
-    dispatch({ type: UPDATE_FIELD_AUTH, key: 'password', value }),
-  onSubmit: (email, password) =>
-    dispatch({ type: LOGIN, payload: agent.Auth.login(email, password) }),
-  onUnload: () =>
-    dispatch({ type: LOGIN_PAGE_UNLOADED })
+const mapStateToProps = (state) => ({ ...state.auth });
+
+const mapDispatchToProps = (dispatch) => ({
+  onChangeEmail: (value) => dispatch({ type: UPDATE_FIELD_AUTH, key: 'email', value }),
+  onChangePassword: (value) => dispatch({ type: UPDATE_FIELD_AUTH, key: 'password', value }),
+  onSubmit: (email, password) => dispatch({ type: LOGIN, payload: agent.Auth.login(email, password) }),
+  onUnload: () => dispatch({ type: LOGIN_PAGE_UNLOADED }),
 });
 
 class Login extends React.Component {
   constructor() {
     super();
-    this.changeEmail = ev => this.props.onChangeEmail(ev.target.value);
-    this.changePassword = ev => this.props.onChangePassword(ev.target.value);
-    this.submitForm = (email, password) => ev => {
+    this.changeEmail = (ev) => this.props.onChangeEmail(ev.target.value);
+    this.changePassword = (ev) => this.props.onChangePassword(ev.target.value);
+    this.submitForm = (email, password) => (ev) => {
       ev.preventDefault();
       this.props.onSubmit(email, password);
     };
@@ -38,8 +35,8 @@ class Login extends React.Component {
   }
 
   render() {
-    const email = this.props.email;
-    const password = this.props.password;
+    const { email } = this.props;
+    const { password } = this.props;
     return (
       <div className="auth-page">
         <div className="container page">
@@ -64,7 +61,8 @@ class Login extends React.Component {
                       type="email"
                       placeholder="Email"
                       value={email}
-                      onChange={this.changeEmail} />
+                      onChange={this.changeEmail}
+                    />
                   </fieldset>
 
                   <fieldset className="form-group">
@@ -73,13 +71,15 @@ class Login extends React.Component {
                       type="password"
                       placeholder="Password"
                       value={password}
-                      onChange={this.changePassword} />
+                      onChange={this.changePassword}
+                    />
                   </fieldset>
 
                   <button
                     className="btn btn-lg btn-primary pull-xs-right"
                     type="submit"
-                    disabled={this.props.inProgress}>
+                    disabled={this.props.inProgress}
+                  >
                     Sign in
                   </button>
 

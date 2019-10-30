@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const LoggedOutView = props => {
+const LoggedOutView = (props) => {
   if (!props.currentUser) {
     return (
       <ul className="nav navbar-nav pull-xs-right">
@@ -30,7 +30,7 @@ const LoggedOutView = props => {
   return null;
 };
 
-const LoggedInView = props => {
+const LoggedInView = (props) => {
   if (props.currentUser) {
     return (
       <ul className="nav navbar-nav pull-xs-right">
@@ -43,20 +43,23 @@ const LoggedInView = props => {
 
         <li className="nav-item">
           <Link to="/editor" className="nav-link">
-            <i className="ion-compose"></i>&nbsp;New Post
+            <i className="ion-compose" />
+&nbsp;New Post
           </Link>
         </li>
 
         <li className="nav-item">
           <Link to="/settings" className="nav-link">
-            <i className="ion-gear-a"></i>&nbsp;Settings
+            <i className="ion-gear-a" />
+&nbsp;Settings
           </Link>
         </li>
 
         <li className="nav-item">
           <Link
             to={`/@${props.currentUser.username}`}
-            className="nav-link">
+            className="nav-link"
+          >
             <img src={props.currentUser.image} className="user-pic" alt={props.currentUser.username} />
             {props.currentUser.username}
           </Link>
@@ -87,5 +90,7 @@ class Header extends React.Component {
     );
   }
 }
+
+// TODO: make as functional component
 
 export default Header;
