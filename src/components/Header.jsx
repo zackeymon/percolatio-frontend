@@ -42,9 +42,16 @@ const LoggedInView = (props) => {
         </li>
 
         <li className="nav-item">
+          <Link to="/editor-grant" className="nav-link">
+            <i className="ion-compose" />
+&nbsp;New Grant
+          </Link>
+        </li>
+
+        <li className="nav-item">
           <Link to="/editor" className="nav-link">
             <i className="ion-compose" />
-&nbsp;New Post
+&nbsp;New Article
           </Link>
         </li>
 
@@ -72,25 +79,23 @@ const LoggedInView = (props) => {
   return null;
 };
 
-class Header extends React.Component {
-  render() {
-    return (
-      <nav className="navbar navbar-light">
-        <div className="container">
 
-          <Link to="/" className="navbar-brand">
-            {this.props.appName.toLowerCase()}
-          </Link>
+function Header(props) {
+  return (
+    <nav className="navbar navbar-light">
+      <div className="container">
 
-          <LoggedOutView currentUser={this.props.currentUser} />
+        <Link to="/" className="navbar-brand">
+          {props.appName.toLowerCase()}
+        </Link>
 
-          <LoggedInView currentUser={this.props.currentUser} />
-        </div>
-      </nav>
-    );
-  }
+        <LoggedOutView currentUser={props.currentUser} />
+
+        <LoggedInView currentUser={props.currentUser} />
+      </div>
+    </nav>
+  );
 }
 
-// TODO: make as functional component
 
 export default Header;
