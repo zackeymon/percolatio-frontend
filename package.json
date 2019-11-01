@@ -15,6 +15,7 @@
   "dependencies": {
     "antd": "^3.24.2",
     "formik": "^2.0.3",
+    "formik-antd": "^1.6.0",
     "history": "^4.6.3",
     "marked": "^0.7.0",
     "prop-types": "^15.5.10",
