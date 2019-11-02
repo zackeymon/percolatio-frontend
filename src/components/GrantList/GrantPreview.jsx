@@ -13,13 +13,13 @@ const mapDispatchToProps = () => ({
 const GrantPreview = (props) => {
   const { grant } = props;
 
-  const { title, slug, author } = grant;
+  const { title, slug, foundation } = grant;
 
   return (
 
     <Card title={title} extra={<Button type="primary">Apply</Button>} style={{ marginTop: '50px' }}>
       <p>{`slug: ${slug}`}</p>
-      <p>{`author: ${author.username}`}</p>
+      <p>{`author: ${foundation.name}`}</p>
 
     </Card>
   );
