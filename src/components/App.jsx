@@ -14,9 +14,9 @@ import Profile from './Profile';
 import ProfileFavorites from './ProfileFavorites';
 import Register from './Register';
 import Settings from './Settings';
-import GrantForm from './Forms/CreateGrantF';
-import ApplicationForm from './Forms/ApplicationF';
-import FoundationForm from './Forms/CreateFoundationF';
+import GrantForm from './Forms/GrantForm';
+import ApplicationForm from './Forms/ApplicationForm';
+import FoundationForm from './Forms/FoundationForm';
 
 const mapStateToProps = (state) => {
   return {
