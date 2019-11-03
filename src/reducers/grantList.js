@@ -1,20 +1,21 @@
-import { CHANGE_TAB } from 'constants/actionTypes';
+import {
+  HOME_PAGE_LOADED, HOME_PAGE_UNLOADED,
+} from 'constants/actionTypes';
 
 export default (state = {}, action) => {
   switch (action.type) {
-    case CHANGE_TAB:
-      if (action.tab !== 'grants') {
-        return state;
-      }
+    case HOME_PAGE_LOADED:
       return {
         ...state,
         pager: action.pager,
-        grants: action.payload.grants,
-        grantsCount: action.payload.articlesCount,
-        tab: action.tab,
+        tags: action.payload[0] ? action.payload[0].tags : [],
+        grants: action.payload[1] ? action.payload[1].grants : [],
+        grantsCount: action.payload[1] ? action.payload[1].grantsCount : [],
         currentPage: 0,
-        tag: null,
+        tab: action.tab,
       };
+    case HOME_PAGE_UNLOADED:
+      return {};
     default:
       return state;
   }
