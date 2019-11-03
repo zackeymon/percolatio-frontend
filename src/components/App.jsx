@@ -14,6 +14,9 @@ import Profile from './Profile';
 import ProfileFavorites from './ProfileFavorites';
 import Register from './Register';
 import Settings from './Settings';
+import GrantFormPage from './GrantFormPage';
+import ApplicationFormPage from './ApplicationFormPage';
+import FoundationFormPage from './FoundationFormPage';
 
 const mapStateToProps = (state) => {
   return {
@@ -64,6 +67,9 @@ class App extends React.Component {
             <Route path="/register" component={Register} />
             <Route path="/editor/:slug" component={Editor} />
             <Route path="/editor" component={Editor} />
+            <Route path="/apply" component={ApplicationFormPage} />
+            <Route path="/foundation" component={FoundationFormPage} />
+            <Route path="/grant" component={GrantFormPage} />            
             <Route path="/article/:id" component={Article} />
             <Route path="/settings" component={Settings} />
             <Route path="/@:username/favorites" component={ProfileFavorites} />
