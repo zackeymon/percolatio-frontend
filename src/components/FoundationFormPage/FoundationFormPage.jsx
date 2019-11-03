@@ -173,6 +173,6 @@ const MyForm = (props) => {
   );
 };
 
-const FoundationForm = formikEnhancer(MyForm);
+const FoundationFormPage = formikEnhancer(MyForm);
 
-export default FoundationForm;
+export default FoundationFormPage;

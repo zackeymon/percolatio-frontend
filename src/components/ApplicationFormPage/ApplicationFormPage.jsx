@@ -489,6 +489,6 @@ const MyForm = (props) => {
   );
 };
 
-const ApplicationForm = formikEnhancer(MyForm);
+const ApplicationFormPage = formikEnhancer(MyForm);
 
-export default ApplicationForm;
+export default ApplicationFormPage;
