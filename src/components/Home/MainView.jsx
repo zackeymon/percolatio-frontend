@@ -1,7 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import GrantList from 'components/GrantList';
 import agent from 'agent';
+import { Tabs } from 'antd';
+import GrantList from '../GrantList';
+import FoundationList from '../FoundationList';
+
+const { TabPane } = Tabs;
+
+const callback = (key) => {
+  console.log(key);
+};
 
 const FeaturedGrantsTab = (props) => {
   const clickHandler = (ev) => {
@@ -23,6 +31,7 @@ const FeaturedGrantsTab = (props) => {
 
 const mapStateToProps = (state) => ({
   ...state.grantList,
+  ...state.foundationList,
   tags: state.home.tags,
   token: state.common.token,
 });
@@ -30,14 +39,28 @@ const mapStateToProps = (state) => ({
 const MainView = (props) => (
   <div className="col-md-9">
     <div className="feed-toggle">
+      <Tabs defaultActiveKey="grants" onChange={callback}>
+        <TabPane tab="Grants" key="grants">
+          <GrantList
+            pager={props.pager}
+            grants={props.grants}
+            loading={props.loading}
+            grantsCount={props.grantsCount}
+            currentPage={props.currentPage}
+          />
+        </TabPane>
+        <TabPane tab="Foundations" key="foundations">
+          <FoundationList
+            pager={props.pager}
+            foundations={props.foundations}
+            loading={props.loading}
+            grantsCount={props.foundationsCount}
+            currentPage={props.currentPage}
+          />
+        </TabPane>
 
-      <GrantList
-        pager={props.pager}
-        grants={props.grants}
-        loading={props.loading}
-        grantsCount={props.grantsCount}
-        currentPage={props.currentPage}
-      />
+      </Tabs>
+
 
     </div>
   </div>

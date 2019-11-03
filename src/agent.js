@@ -76,6 +76,19 @@ const Grants = {
   create: (article) => requests.post('/grants', { article }),
 };
 
+const Foundations = {
+  all: () => requests.get('/foundations'),
+  byTag: (tag, page) => requests.get(`/grants?tag=${encode(tag)}&${limit(10, page)}`),
+  del: (slug) => requests.del(`/grants/${slug}`),
+  favorite: (slug) => requests.post(`/grants/${slug}/favorite`),
+  favoritedBy: (author, page) => requests.get(`/grants?favorited=${encode(author)}&${limit(5, page)}`),
+  feed: () => requests.get('/grants/feed?limit=10&offset=0'),
+  get: (slug) => requests.get(`/grants/${slug}`),
+  unfavorite: (slug) => requests.del(`/grants/${slug}/favorite`),
+  update: (article) => requests.put(`/grants/${article.slug}`, { article: omitSlug(article) }),
+  create: (article) => requests.post('/grants', { article }),
+};
+
 const Comments = {
   create: (slug, comment) => requests.post(`/articles/${slug}/comments`, { comment }),
   delete: (slug, commentId) => requests.del(`/articles/${slug}/comments/${commentId}`),
@@ -93,6 +106,7 @@ export default {
   Auth,
   Comments,
   Grants,
+  Foundations,
   Profile,
   Tags,
   setToken: (_token) => {
