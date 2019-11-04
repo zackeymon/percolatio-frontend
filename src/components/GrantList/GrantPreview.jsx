@@ -4,8 +4,7 @@ import {
   Button, Card, Avatar, Row, Col,
 } from 'antd';
 import 'antd/dist/antd.css';
-import { Route, Link } from 'react-router-dom';
-import Grant from '../Grant';
+import { Link } from 'react-router-dom';
 
 const mapDispatchToProps = () => ({
   favorite: () => (
@@ -23,18 +22,18 @@ const GrantPreview = (props) => {
   return (
 
     <Card
-      title={<Link to={`/grants/${grant.slug}`} className="preview-link">{title}</Link>}
+      title={<Link to={`/grant/${grant.slug}`} className="preview-link">{title}</Link>}
       extra={(
         <div>
           <Button href="/apply" type="primary">Apply</Button>
           {' '}
 
-          <Link to={`/grants/${slug}`} component={Grant}>
+          <Link to={`/grant/${slug}`}>
             <Button>See More</Button>
           </Link>
 
         </div>
-)}
+      )}
       style={{ marginTop: '50px' }}
     >
       <div>
@@ -49,12 +48,12 @@ const GrantPreview = (props) => {
           <Col span={13}>
             <ul>
               <li>
-              Foundation:
+                Foundation:
                 {' '}
                 {`${foundation.name}`}
               </li>
               <li>
-              Description:
+                Description:
                 {''}
                 {`${grant.description}`}
               </li>

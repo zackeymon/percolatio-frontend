@@ -18,7 +18,7 @@ const mapDispatchToProps = (dispatch) => ({
 class Grant extends React.Component {
   componentWillMount() {
     this.props.onLoad(Promise.all([
-      agent.Grants.get(this.props.match.params.id),
+      agent.Grants.get(this.props.match.params.slug),
     ]));
   }
 

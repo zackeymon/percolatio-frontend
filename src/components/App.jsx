@@ -69,7 +69,7 @@ class App extends React.Component {
             <Route path="/editor" component={Editor} />
             <Route path="/apply" component={ApplicationFormPage} />
             <Route path="/foundations" component={FoundationFormPage} />
-            <Route path="/grants/form" component={GrantFormPage} />
+            <Route path="/new-grant" component={GrantFormPage} />
             <Route path="/grant/:slug" component={Grant} />
             <Route path="/article/:id" component={Article} />
             <Route path="/settings" component={Settings} />

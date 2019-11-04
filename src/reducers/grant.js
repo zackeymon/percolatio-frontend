@@ -8,7 +8,7 @@ export default (state = {}, action) => {
     case GRANT_PAGE_LOADED:
       return {
         ...state,
-        grant: action.payload.grant,
+        grant: action.payload[0].grant,
       };
     case GRANT_PAGE_UNLOADED:
       return {};
