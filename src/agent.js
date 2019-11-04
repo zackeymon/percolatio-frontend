@@ -78,15 +78,15 @@ const Grants = {
 
 const Foundations = {
   all: () => requests.get('/foundations'),
-  byTag: (tag, page) => requests.get(`/grants?tag=${encode(tag)}&${limit(10, page)}`),
-  del: (slug) => requests.del(`/grants/${slug}`),
-  favorite: (slug) => requests.post(`/grants/${slug}/favorite`),
-  favoritedBy: (author, page) => requests.get(`/grants?favorited=${encode(author)}&${limit(5, page)}`),
-  feed: () => requests.get('/grants/feed?limit=10&offset=0'),
-  get: (slug) => requests.get(`/grants/${slug}`),
-  unfavorite: (slug) => requests.del(`/grants/${slug}/favorite`),
-  update: (article) => requests.put(`/grants/${article.slug}`, { article: omitSlug(article) }),
-  create: (article) => requests.post('/grants', { article }),
+  byTag: (tag, page) => requests.get(`/foundations?tag=${encode(tag)}&${limit(10, page)}`),
+  del: (name) => requests.del(`/foundations/${name}`),
+  favorite: (name) => requests.post(`/foundations/${name}/favorite`),
+  favoritedBy: (author, page) => requests.get(`/foundations?favorited=${encode(author)}&${limit(5, page)}`),
+  feed: () => requests.get('/foundations/feed?limit=10&offset=0'),
+  get: (name) => requests.get(`/foundations/${name}`),
+  unfavorite: (name) => requests.del(`/foundations/${name}/favorite`),
+  update: (foundation) => requests.put(`/foundations/${foundation.name}`, { foundation: omitSlug(foundation) }),
+  create: (foundation) => requests.post('/foundations', { foundation }),
 };
 
 const Comments = {
