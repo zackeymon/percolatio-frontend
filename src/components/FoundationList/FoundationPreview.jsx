@@ -12,20 +12,22 @@ const mapDispatchToProps = () => ({
   ),
 });
 
-const GrantPreview = (props) => {
-  const { grant } = props;
+const FoundationPreview = (props) => {
+  const { foundation } = props;
 
-  const { title, slug, foundation } = grant;
+  const {
+    name, description, followersCount, tagList,
+  } = foundation;
 
   return (
 
     <Card
-      title={title}
+      title={name}
       extra={(
         <div>
-          <Button href="/apply" type="primary">Apply</Button>
+          <Button href={`/foundations/${name}/donate`} type="primary">Sponsor</Button>
           {' '}
-          <Button href={`/grants/${slug}`}>See More</Button>
+          <Button href={`/foundations/${name}`}>See More</Button>
         </div>
 )}
       style={{ marginTop: '50px' }}
@@ -42,27 +44,28 @@ const GrantPreview = (props) => {
           <Col span={13}>
             <ul>
               <li>
-              Foundation:
-                {' '}
-                {`${foundation.name}`}
-              </li>
-              <li>
               Description:
                 {''}
-                {`${grant.description}`}
+                {`${description}`}
+              </li>
+
+              <li>
+                Tags:
+                {''}
+                {`${tagList}`}
               </li>
             </ul>
 
           </Col>
           <Col span={6}>
             <Row>
-              Deadline: 17-02-2020
+              Current Grants: Grant 1, 2...
             </Row>
 
             <Row>
-              Amount:
+              Followers:
               {' '}
-              {`${grant.amount}`}
+              {`${followersCount}`}
             </Row>
 
           </Col>
@@ -74,4 +77,4 @@ const GrantPreview = (props) => {
   );
 };
 
-export default connect(() => ({}), mapDispatchToProps)(GrantPreview);
+export default connect(() => ({}), mapDispatchToProps)(FoundationPreview);

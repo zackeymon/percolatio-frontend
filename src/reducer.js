@@ -6,6 +6,7 @@ import auth from 'reducers/auth';
 import common from 'reducers/common';
 import editor from 'reducers/editor';
 import grantList from 'reducers/grantList';
+import foundationList from 'reducers/foundationList';
 import home from 'reducers/home';
 import profile from 'reducers/profile';
 import settings from 'reducers/settings';
@@ -17,6 +18,7 @@ export default combineReducers({
   common,
   editor,
   grantList,
+  foundationList,
   home,
   profile,
   settings,

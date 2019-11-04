@@ -1,26 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import GrantList from 'components/GrantList';
-import ArticleList from 'components/ArticleList';
 import agent from 'agent';
-import { CHANGE_TAB } from 'constants/actionTypes';
+import { Tabs } from 'antd';
+import GrantList from '../GrantList';
+import FoundationList from '../FoundationList';
 
-const GlobalFeedTab = (props) => {
-  const clickHandler = (ev) => {
-    ev.preventDefault();
-    props.onTabClick('all', agent.Articles.all, agent.Articles.all());
-  };
-  return (
-    <li className="nav-item">
-      <button
-        type="button"
-        className={props.tab === 'all' ? 'nav-link active' : 'nav-link'}
-        onClick={clickHandler}
-      >
-        Global Feed
-      </button>
-    </li>
-  );
+const { TabPane } = Tabs;
+
+const callback = (key) => {
+  console.log(key);
 };
 
 const FeaturedGrantsTab = (props) => {
@@ -41,73 +29,41 @@ const FeaturedGrantsTab = (props) => {
   );
 };
 
-const TagFilterTab = (props) => {
-  if (!props.tag) {
-    return null;
-  }
-
-  return (
-    <li className="nav-item">
-      <button
-        type="button"
-        className="nav-link active"
-      >
-        <i className="ion-pound" />
-        {' '}
-        {props.tag}
-      </button>
-    </li>
-  );
-};
-
 const mapStateToProps = (state) => ({
-  ...state.articleList,
   ...state.grantList,
+  ...state.foundationList,
   tags: state.home.tags,
   token: state.common.token,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onTabClick: (tab, pager, payload) => dispatch({
-    type: CHANGE_TAB, tab, pager, payload,
-  }),
 });
 
 const MainView = (props) => (
   <div className="col-md-9">
     <div className="feed-toggle">
-      <ul className="nav nav-pills outline-active">
+      <Tabs defaultActiveKey="grants" onChange={callback}>
+        <TabPane tab="Grants" key="grants">
+          <GrantList
+            pager={props.pager}
+            grants={props.grants}
+            loading={props.loading}
+            grantsCount={props.grantsCount}
+            currentPage={props.currentPage}
+          />
+        </TabPane>
+        <TabPane tab="Foundations" key="foundations">
+          <FoundationList
+            pager={props.pager}
+            foundations={props.foundations}
+            loading={props.loading}
+            grantsCount={props.foundationsCount}
+            currentPage={props.currentPage}
+          />
+        </TabPane>
 
-        <GlobalFeedTab tab={props.tab} onTabClick={props.onTabClick} />
+      </Tabs>
 
-        <FeaturedGrantsTab tab={props.tab} onTabClick={props.onTabClick} />
 
-        <TagFilterTab tag={props.tag} />
-
-      </ul>
     </div>
-
-    {props.tab === 'grants' && (
-      <GrantList
-        pager={props.pager}
-        grants={props.grants}
-        loading={props.loading}
-        grantsCount={props.grantsCount}
-        currentPage={props.currentPage}
-      />
-    )}
-
-    {props.tab === 'all' && (
-      <ArticleList
-        pager={props.pager}
-        articles={props.articles}
-        loading={props.loading}
-        articlesCount={props.articlesCount}
-        currentPage={props.currentPage}
-      />
-    )}
-
   </div>
 );
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainView);
+export default connect(mapStateToProps)(MainView);

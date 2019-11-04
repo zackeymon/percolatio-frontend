@@ -8,22 +8,20 @@ export default (state = {}, action) => {
       return {
         ...state,
         pager: action.pager,
-        tags: action.payload[0] ? action.payload[0].tags : [],
-        grants: action.payload[1] ? action.payload[1].grants : [],
-        grantsCount: action.payload[1] ? action.payload[1].grantsCount : [],
+        foundations: action.payload[2] ? action.payload[2].foundations : [],
+        foundationsCount: action.payload[2] ? action.payload[2].foundationsCount : [],
         currentPage: 0,
         tab: action.tab,
       };
     case HOME_PAGE_UNLOADED:
       return {};
     case CHANGE_TAB:
-      if (action.tab === 'grants') {
+      if (action.tab === 'foundations') {
         return {
           ...state,
           pager: action.pager,
-          tags: action.payload[0] ? action.payload[0].tags : [],
-          grants: action.payload[1] ? action.payload[1].grants : [],
-          grantsCount: action.payload[1] ? action.payload[1].grantsCount : [],
+          foundations: action.payload[2] ? action.payload[2].foundations : [],
+          foundationsCount: action.payload[2] ? action.payload[2].foundationsCount : [],
           currentPage: 0,
           tab: action.tab,
         };
