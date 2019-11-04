@@ -72,8 +72,8 @@ const Grants = {
   feed: () => requests.get('/grants/feed?limit=10&offset=0'),
   get: (slug) => requests.get(`/grants/${slug}`),
   unfavorite: (slug) => requests.del(`/grants/${slug}/favorite`),
-  update: (article) => requests.put(`/grants/${article.slug}`, { article: omitSlug(article) }),
-  create: (article) => requests.post('/grants', { article }),
+  update: (grant) => requests.put(`/grants/${grant.slug}`, { grant: omitSlug(grant) }),
+  create: (grant) => requests.post('/grants', { grant }),
 };
 
 const Foundations = {

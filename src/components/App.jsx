@@ -17,7 +17,7 @@ import Settings from './Settings';
 import GrantFormPage from './GrantFormPage';
 import ApplicationFormPage from './ApplicationFormPage';
 import FoundationFormPage from './FoundationFormPage';
-import GrantPage from './Grant/GrantPage';
+import Grant from './Grant';
 
 const mapStateToProps = (state) => ({
   appLoaded: state.common.appLoaded,
@@ -70,7 +70,7 @@ class App extends React.Component {
             <Route path="/apply" component={ApplicationFormPage} />
             <Route path="/foundations" component={FoundationFormPage} />
             <Route path="/grants/form" component={GrantFormPage} />
-            <Route path="/grant/:slug" component={GrantPage} />
+            <Route path="/grant/:slug" component={Grant} />
             <Route path="/article/:id" component={Article} />
             <Route path="/settings" component={Settings} />
             <Route path="/@:username/favorites" component={ProfileFavorites} />
