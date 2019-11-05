@@ -2,29 +2,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import agent from 'agent';
-import { GRANT_PAGE_LOADED, GRANT_PAGE_UNLOADED } from 'constants/actionTypes';
+import { FOUNDATION_PAGE_LOADED, FOUNDATION_PAGE_UNLOADED } from 'constants/actionTypes';
 import {
-  Row, Col, Layout, Avatar, Button, Icon,
+  Row, Col, Layout, Avatar, Icon,
 } from 'antd';
 
 const mapStateToProps = (state) => ({
-  ...state.grant,
+  ...state.foundation,
   currentUser: state.common.currentUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onLoad: (payload) => dispatch({ type: GRANT_PAGE_LOADED, payload }),
-  onUnload: () => dispatch({ type: GRANT_PAGE_UNLOADED }),
+  onLoad: (payload) => dispatch({ type: FOUNDATION_PAGE_LOADED, payload }),
+  onUnload: () => dispatch({ type: FOUNDATION_PAGE_UNLOADED }),
 });
 
 const {
   Footer, Content,
 } = Layout;
 
-class Grant extends React.Component {
+class Foundation extends React.Component {
   componentWillMount() {
     this.props.onLoad(Promise.all([
-      agent.Grants.get(this.props.match.params.slug),
+      agent.Foundations.get(this.props.match.params.name),
     ]));
   }
 
@@ -33,7 +33,7 @@ class Grant extends React.Component {
   }
 
   render() {
-    if (!this.props.grant) {
+    if (!this.props.foundation) {
       return null;
     }
 
@@ -43,7 +43,7 @@ class Grant extends React.Component {
           <Content>
             <Row type="flex" justify="space-around" align="middle">
               <Col span={7} offset={4}>
-                <h1>{this.props.grant.title}</h1>
+                <h1>{this.props.foundation.name}</h1>
               </Col>
 
               <Col span={6}>
@@ -55,25 +55,15 @@ class Grant extends React.Component {
                 />}
               </Col>
             </Row>
-            <Row type="flex" justify="space-around" align="middle">
-
-              <Col span={4} offset={4}>
-                <Button href="/apply" size="large" type="primary">Apply</Button>
-              </Col>
-
-              <Col span={5} offset={1}>
-                <Button href="/apply">About this foundation</Button>
-              </Col>
-            </Row>
 
             <Row type="flex" justify="space-around" align="middle">
               <Col span={18} offset={5}>
                 <h3>
                   {' '}
-                Short Description of this Grant
+                What do we do?
                 </h3>
                 <p>
-                  {this.props.grant.description}
+                  {this.props.foundation.description}
                 </p>
 
               </Col>
@@ -85,7 +75,7 @@ class Grant extends React.Component {
                 </h5>
 
                 <p>
-                  {this.props.grant.createdAt}
+                  {this.props.foundation.createdAt}
                 </p>
 
               </Col>
@@ -106,7 +96,7 @@ class Grant extends React.Component {
                 Full Description
                 </h3>
                 <p>
-                  {this.props.grant.body}
+                  {this.props.foundation.body}
                 </p>
 
               </Col>
@@ -116,7 +106,7 @@ class Grant extends React.Component {
             <Row type="flex" justify="space-around" align="middle">
               <ul className="tag-list">
                 {
-                  this.props.grant.tagList.map((tag) => (
+                  this.props.foundation.tagList.map((tag) => (
                     <li
                       className="tag-default tag-pill tag-outline"
                       key={tag}
@@ -135,7 +125,7 @@ class Grant extends React.Component {
                 About this Foundation
                 </h3>
                 <p>
-                  {this.props.grant.founder}
+                  Name of foundation
                 </p>
 
               </Col>
@@ -158,4 +148,4 @@ class Grant extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Grant);
+export default connect(mapStateToProps, mapDispatchToProps)(Foundation);

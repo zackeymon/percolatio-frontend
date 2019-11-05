@@ -42,14 +42,14 @@ const LoggedInView = (props) => {
         </li>
 
         <li className="nav-item">
-          <Link to="/foundations" className="nav-link">
+          <Link to="/new-foundation" className="nav-link">
             <i className="ion-compose" />
 &nbsp;Create Foundation
           </Link>
         </li>
 
         <li className="nav-item">
-          <Link to="/grants/form" className="nav-link">
+          <Link to="/new-grant" className="nav-link">
             <i className="ion-compose" />
 &nbsp;Create Grant
           </Link>
