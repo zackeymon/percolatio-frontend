@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
 import React from 'react';
-import Banner from './Banner';
-import MainView from './MainView';
-import Tags from './Tags';
 import agent from 'agent';
 import {
   HOME_PAGE_LOADED,
   HOME_PAGE_UNLOADED,
   APPLY_TAG_FILTER,
 } from 'constants/actionTypes';
+import Banner from './Banner';
+import MainView from './MainView';
+import Tags from './Tags';
 
 const { Promise } = global;
 
@@ -33,8 +33,10 @@ const mapDispatchToProps = (dispatch) => ({
 class Home extends React.Component {
   componentWillMount() {
     const tab = this.props.token ? 'feed' : 'all';
-    const articlesPromise = this.props.token ? agent.Articles.feed : agent.Articles.all;
-    this.props.onLoad(tab, articlesPromise, Promise.all([agent.Tags.getAll(), articlesPromise()]));
+    const grantPromise = agent.Grants.all;
+    const foundationPromise = agent.Foundations.all;
+    this.props.onLoad(tab, grantPromise,
+      Promise.all([agent.Tags.getAll(), grantPromise(), foundationPromise()]));
   }
 
   componentWillUnmount() {
@@ -58,7 +60,8 @@ class Home extends React.Component {
 
                 <Tags
                   tags={this.props.tags}
-                  onClickTag={this.props.onClickTag} />
+                  onClickTag={this.props.onClickTag}
+                />
 
               </div>
             </div>
