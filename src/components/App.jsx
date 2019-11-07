@@ -13,18 +13,18 @@ import Login from './Login';
 import Profile from './Profile';
 import ProfileFavorites from './ProfileFavorites';
 import Register from './Register';
+import Dashboard from './Dashboard';
 import Settings from './Settings';
 import GrantFormPage from './GrantFormPage';
 import ApplicationFormPage from './ApplicationFormPage';
 import FoundationFormPage from './FoundationFormPage';
 
-const mapStateToProps = (state) => {
-  return {
-    appLoaded: state.common.appLoaded,
-    appName: state.common.appName,
-    currentUser: state.common.currentUser,
-    redirectTo: state.common.redirectTo,
-  }};
+const mapStateToProps = (state) => ({
+  appLoaded: state.common.appLoaded,
+  appName: state.common.appName,
+  currentUser: state.common.currentUser,
+  redirectTo: state.common.redirectTo,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onLoad: (payload, token) => dispatch({
@@ -36,14 +36,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class App extends React.Component {
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.redirectTo) {
-      // this.context.router.replace(nextProps.redirectTo);
-      store.dispatch(push(nextProps.redirectTo));
-      this.props.onRedirect();
-    }
-  }
-
   componentWillMount() {
     const token = window.localStorage.getItem('jwt');
     if (token) {
@@ -51,6 +43,14 @@ class App extends React.Component {
     }
 
     this.props.onLoad(token ? agent.Auth.current() : null, token);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.redirectTo) {
+      // this.context.router.replace(nextProps.redirectTo);
+      store.dispatch(push(nextProps.redirectTo));
+      this.props.onRedirect();
+    }
   }
 
   render() {
@@ -63,6 +63,7 @@ class App extends React.Component {
           />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route path="/dashboard" component={Dashboard} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/editor/:slug" component={Editor} />
