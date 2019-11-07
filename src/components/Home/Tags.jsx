@@ -10,8 +10,8 @@ const Tags = (props) => {
           tags.map((tag) => {
             const handleClick = (ev) => {
               ev.preventDefault();
-              props.onClickTag(tag, (page) => agent.Articles.byTag(tag, page),
-                agent.Articles.byTag(tag));
+              props.onClickTag(tag, (page) => agent.Grants.byTag(tag, page),
+                agent.Grants.byTag(tag));
             };
 
             return (

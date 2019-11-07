@@ -17,14 +17,15 @@ import Settings from './Settings';
 import GrantFormPage from './GrantFormPage';
 import ApplicationFormPage from './ApplicationFormPage';
 import FoundationFormPage from './FoundationFormPage';
+import Grant from './Grant';
+import Foundation from './Foundation';
 
-const mapStateToProps = (state) => {
-  return {
-    appLoaded: state.common.appLoaded,
-    appName: state.common.appName,
-    currentUser: state.common.currentUser,
-    redirectTo: state.common.redirectTo,
-  }};
+const mapStateToProps = (state) => ({
+  appLoaded: state.common.appLoaded,
+  appName: state.common.appName,
+  currentUser: state.common.currentUser,
+  redirectTo: state.common.redirectTo,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onLoad: (payload, token) => dispatch({
@@ -36,14 +37,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class App extends React.Component {
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.redirectTo) {
-      // this.context.router.replace(nextProps.redirectTo);
-      store.dispatch(push(nextProps.redirectTo));
-      this.props.onRedirect();
-    }
-  }
-
   componentWillMount() {
     const token = window.localStorage.getItem('jwt');
     if (token) {
@@ -51,6 +44,14 @@ class App extends React.Component {
     }
 
     this.props.onLoad(token ? agent.Auth.current() : null, token);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.redirectTo) {
+      // this.context.router.replace(nextProps.redirectTo);
+      store.dispatch(push(nextProps.redirectTo));
+      this.props.onRedirect();
+    }
   }
 
   render() {
@@ -68,8 +69,10 @@ class App extends React.Component {
             <Route path="/editor/:slug" component={Editor} />
             <Route path="/editor" component={Editor} />
             <Route path="/apply" component={ApplicationFormPage} />
-            <Route path="/foundation" component={FoundationFormPage} />
-            <Route path="/grant" component={GrantFormPage} />            
+            <Route path="/new-foundation" component={FoundationFormPage} />
+            <Route path="/new-grant" component={GrantFormPage} />
+            <Route path="/grant/:slug" component={Grant} />
+            <Route path="/foundations/:name" component={Foundation} />
             <Route path="/article/:id" component={Article} />
             <Route path="/settings" component={Settings} />
             <Route path="/@:username/favorites" component={ProfileFavorites} />
