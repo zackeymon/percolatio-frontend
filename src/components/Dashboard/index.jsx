@@ -2,42 +2,39 @@ import { connect } from 'react-redux';
 import React from 'react';
 import agent from 'agent';
 import {
-  HOME_PAGE_LOADED,
-  HOME_PAGE_UNLOADED,
-  APPLY_TAG_FILTER,
+  DASHBOARD_PAGE_LOADED,
+  DASHBOARD_PAGE_UNLOADED,
 } from 'constants/actionTypes';
 
-import { Row, Tabs, Col } from 'antd';
+import {
+  Row, Tabs, Col, Button, Icon,
+} from 'antd';
 import ActionCenterCard from './ActionCenterCard';
 import GrantOverviewCard from './GrantOverviewCard';
 import FoundationOverviewCard from './FoundationOverviewCard';
 
 const { TabPane } = Tabs;
 
-const { Promise } = global;
-
 const mapStateToProps = (state) => ({
-  ...state.home,
+  ...state.dashboard,
+  currentUser: state.common.currentUser,
   appName: state.common.appName,
   token: state.common.token,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onClickTag: (tag, pager, payload) => dispatch({
-    type: APPLY_TAG_FILTER, tag, pager, payload,
-  }),
-  onLoad: (tab, pager, payload) => dispatch({
-    type: HOME_PAGE_LOADED, tab, pager, payload,
+  onLoad: (payload) => dispatch({
+    type: DASHBOARD_PAGE_LOADED, payload,
   }),
   onUnload: () => dispatch({
-    type: HOME_PAGE_UNLOADED,
+    type: DASHBOARD_PAGE_UNLOADED,
   }),
 });
 
-class Home extends React.Component {
-  componentWillMount() {
-    const articlesPromise = agent.Articles.all;
-    this.props.onLoad('all', articlesPromise, Promise.all([agent.Tags.getAll(), articlesPromise()]));
+class Dashboard extends React.Component {
+  constructor(props) {
+    super(props);
+    props.onLoad(agent.Foundations.byFounder(props.currentUser.username));
   }
 
   componentWillUnmount() {
@@ -45,10 +42,24 @@ class Home extends React.Component {
   }
 
   render() {
+    const operations = (
+      <Button href="/foundation">
+        <Icon type="plus" />
+        {' '}
+        New Foundation
+      </Button>
+    );
+
+    // Be aware when working with antd tabs https://github.com/ant-design/ant-design/issues/17492
     return (
       <div className="container page">
+        <h1>
+          yo
+          {' '}
+          {this.props.currentUser.username}
+        </h1>
         <Row>
-          <Tabs defaultActiveKey="overview">
+          <Tabs defaultActiveKey="overview" tabBarExtraContent={operations}>
             <TabPane tab="Overview" key="overview">
               <Row gutter={[16, 16]}>
                 <Col span={12}>
@@ -64,9 +75,16 @@ class Home extends React.Component {
                 </Col>
               </Row>
             </TabPane>
-            <TabPane tab="Tab 2" key="2">
-              Content of Tab Pane 2
-            </TabPane>
+            {this.props.foundations
+              && this.props.foundations.map(
+                (foundation) => (
+                  <TabPane tab={foundation.name} key={foundation.name}>
+                    {/* should refactor this bit into a separate component */}
+                    <h1>{foundation.name}</h1>
+                    <p>{foundation.description}</p>
+                  </TabPane>
+                ),
+              )}
           </Tabs>
         </Row>
       </div>
@@ -74,4 +92,4 @@ class Home extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

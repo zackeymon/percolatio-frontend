@@ -58,10 +58,7 @@ const MainView = (props) => (
             currentPage={props.currentPage}
           />
         </TabPane>
-
       </Tabs>
-
-
     </div>
   </div>
 );

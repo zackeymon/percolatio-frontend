@@ -70,7 +70,7 @@ class App extends React.Component {
             <Route path="/editor" component={Editor} />
             <Route path="/apply" component={ApplicationFormPage} />
             <Route path="/foundation" component={FoundationFormPage} />
-            <Route path="/grant" component={GrantFormPage} />            
+            <Route path="/grant" component={GrantFormPage} />
             <Route path="/article/:id" component={Article} />
             <Route path="/settings" component={Settings} />
             <Route path="/@:username/favorites" component={ProfileFavorites} />
@@ -89,9 +89,5 @@ class App extends React.Component {
     );
   }
 }
-
-// App.contextTypes = {
-//   router: PropTypes.object.isRequired
-// };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

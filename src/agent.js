@@ -78,6 +78,7 @@ const Grants = {
 
 const Foundations = {
   all: () => requests.get('/foundations'),
+  byFounder: (founder) => requests.get(`/foundations?founder=${encode(founder)}`),
   byTag: (tag, page) => requests.get(`/grants?tag=${encode(tag)}&${limit(10, page)}`),
   del: (slug) => requests.del(`/grants/${slug}`),
   favorite: (slug) => requests.post(`/grants/${slug}/favorite`),
