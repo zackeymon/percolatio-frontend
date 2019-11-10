@@ -13,6 +13,7 @@ import Login from './Login';
 import Profile from './Profile';
 import ProfileFavorites from './ProfileFavorites';
 import Register from './Register';
+import Dashboard from './Dashboard';
 import Settings from './Settings';
 import GrantFormPage from './GrantFormPage';
 import ApplicationFormPage from './ApplicationFormPage';
@@ -64,13 +65,14 @@ class App extends React.Component {
           />
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route path="/dashboard" component={Dashboard} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/editor/:slug" component={Editor} />
             <Route path="/editor" component={Editor} />
             <Route path="/apply" component={ApplicationFormPage} />
-            <Route path="/new-foundation" component={FoundationFormPage} />
-            <Route path="/new-grant" component={GrantFormPage} />
+            <Route path="/foundation" component={FoundationFormPage} />
+            <Route path="/grant" component={GrantFormPage} />
             <Route path="/grant/:slug" component={Grant} />
             <Route path="/foundations/:name" component={Foundation} />
             <Route path="/article/:id" component={Article} />
@@ -91,9 +93,5 @@ class App extends React.Component {
     );
   }
 }
-
-// App.contextTypes = {
-//   router: PropTypes.object.isRequired
-// };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

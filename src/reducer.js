@@ -4,6 +4,7 @@ import article from 'reducers/article';
 import articleList from 'reducers/articleList';
 import auth from 'reducers/auth';
 import common from 'reducers/common';
+import dashboard from 'reducers/dashboard';
 import editor from 'reducers/editor';
 import grantList from 'reducers/grantList';
 import grant from 'reducers/grant';
@@ -18,6 +19,7 @@ export default combineReducers({
   articleList,
   auth,
   common,
+  dashboard,
   editor,
   grant,
   foundation,
