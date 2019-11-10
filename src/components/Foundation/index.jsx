@@ -4,10 +4,15 @@ import { connect } from 'react-redux';
 import agent from 'agent';
 import { FOUNDATION_PAGE_LOADED, FOUNDATION_PAGE_UNLOADED } from 'constants/actionTypes';
 import {
+<<<<<<< HEAD
   Row, Col, Layout, Avatar, Icon, Button,
 } from 'antd';
 import './Foundation.css';
 
+=======
+  Row, Col, Layout, Avatar, Icon,
+} from 'antd';
+>>>>>>> master
 
 const mapStateToProps = (state) => ({
   ...state.foundation,
@@ -43,6 +48,7 @@ class Foundation extends React.Component {
       <div>
         <Layout>
           <Content>
+<<<<<<< HEAD
             <div className="foundation_header">
               <Row type="flex" justify="space-around" align="middle">
                 <Col align="bottom" offset={4} span={7}>
@@ -67,14 +73,34 @@ class Foundation extends React.Component {
               <hr className="foundation_header_line" />
             </div>
 
+=======
+            <Row type="flex" justify="space-around" align="middle">
+              <Col span={7} offset={4}>
+                <h1>{this.props.foundation.name}</h1>
+              </Col>
+
+              <Col span={6}>
+                {' '}
+                {<Avatar
+                  shape="circle"
+                  size={200}
+                  icon="user"
+                />}
+              </Col>
+            </Row>
+>>>>>>> master
 
             <Row type="flex" justify="space-around" align="middle">
               <Col span={18} offset={5}>
                 <h3>
                   {' '}
+<<<<<<< HEAD
                 About
                   {' '}
                   {this.props.foundation.name}
+=======
+                What do we do?
+>>>>>>> master
                 </h3>
                 <p>
                   {this.props.foundation.description}
@@ -83,6 +109,7 @@ class Foundation extends React.Component {
               </Col>
             </Row>
             <Row type="flex" justify="space-around" align="middle">
+<<<<<<< HEAD
               <Col span={18} offset={5}>
                 <h3>
                 Open Grants
@@ -96,6 +123,26 @@ class Foundation extends React.Component {
 
               </Col>
 
+=======
+              <Col span={11} offset={5}>
+                <h5>
+                Application Deadline
+                </h5>
+
+                <p>
+                  {this.props.foundation.createdAt}
+                </p>
+
+              </Col>
+              <Col span={7}>
+                <h5>
+                Amounts
+                </h5>
+                <p>250$</p>
+
+
+              </Col>
+>>>>>>> master
             </Row>
 
             <Row type="flex" justify="space-around" align="middle">
@@ -113,10 +160,15 @@ class Foundation extends React.Component {
 
 
             <Row type="flex" justify="space-around" align="middle">
+<<<<<<< HEAD
               <Col span={18} offset={5}>
 
                 <ul className="tag-list">
                   {
+=======
+              <ul className="tag-list">
+                {
+>>>>>>> master
                   this.props.foundation.tagList.map((tag) => (
                     <li
                       className="tag-default tag-pill tag-outline"
@@ -126,14 +178,19 @@ class Foundation extends React.Component {
                     </li>
                   ))
                 }
+<<<<<<< HEAD
                 </ul>
               </Col>
+=======
+              </ul>
+>>>>>>> master
             </Row>
 
             <Row type="flex" justify="space-around" align="middle">
               <Col span={18} offset={5}>
                 <h3>
                   {' '}
+<<<<<<< HEAD
                 Past awards
                 </h3>
 
@@ -142,6 +199,13 @@ class Foundation extends React.Component {
                   <li> Grantee  2</li>
                   <li> Grantee  3</li>
                 </ol>
+=======
+                About this Foundation
+                </h3>
+                <p>
+                  Name of foundation
+                </p>
+>>>>>>> master
 
               </Col>
             </Row>
