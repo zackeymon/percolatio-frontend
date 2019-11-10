@@ -39,7 +39,7 @@ const mapStateToProps = (state) => ({
 const MainView = (props) => (
   <div className="col-md-9">
     <div className="feed-toggle">
-      <Tabs defaultActiveKey="grants" onChange={callback}>
+      <Tabs size="large" defaultActiveKey="grants" onChange={callback}>
         <TabPane tab="Grants" key="grants">
           <GrantList
             pager={props.pager}

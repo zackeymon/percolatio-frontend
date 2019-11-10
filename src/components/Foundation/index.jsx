@@ -6,6 +6,7 @@ import { FOUNDATION_PAGE_LOADED, FOUNDATION_PAGE_UNLOADED } from 'constants/acti
 import {
   Row, Col, Layout, Avatar, Icon, Button,
 } from 'antd';
+import Donation from './Donation';
 import './Foundation.css';
 
 
@@ -48,7 +49,7 @@ class Foundation extends React.Component {
                 <Col align="bottom" offset={4} span={7}>
                   <h1 className="foundation_name">{this.props.foundation.name}</h1>
                   <div className="button_donate">
-                    <Button size="large" type="primary">Sponsor</Button>
+                    <Donation />
                   </div>
                 </Col>
 

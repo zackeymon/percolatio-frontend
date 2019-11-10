@@ -41,11 +41,12 @@ const FoundationPreview = (props) => {
       <div>
         <Row type="flex" justify="space-around" align="middle">
           <Col span={5}>
-            {<Avatar
+            <Avatar
               shape="circle"
               size={80}
-              icon="user"
-            />}
+            >
+              {name.charAt(0)}
+            </Avatar>
           </Col>
           <Col span={13}>
             <ul>

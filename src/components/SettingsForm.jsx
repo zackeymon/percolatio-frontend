@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'antd';
 
 
 class SettingsForm extends React.Component {
@@ -109,13 +110,16 @@ class SettingsForm extends React.Component {
             />
           </fieldset>
 
-          <button
-            className="btn btn-lg btn-primary pull-xs-right"
-            type="submit"
+          <Button
+            type="primary"
             disabled={this.state.inProgress}
+            size="large"
+            style={{ float: 'right' }}
+            block
+            onClick={this.submitForm}
           >
               Update Settings
-          </button>
+          </Button>
 
         </fieldset>
       </form>

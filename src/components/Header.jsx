@@ -35,7 +35,7 @@ const LoggedInView = (props) => {
     return (
       <ul className="nav navbar-nav pull-xs-right">
 
-        <li className="nav-item">
+        <li id="home" className="nav-item">
           <Link to="/" className="nav-link">
             Home
           </Link>
