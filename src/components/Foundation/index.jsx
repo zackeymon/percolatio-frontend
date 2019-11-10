@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 import agent from 'agent';
 import { FOUNDATION_PAGE_LOADED, FOUNDATION_PAGE_UNLOADED } from 'constants/actionTypes';
 import {
-  Row, Col, Layout, Avatar, Icon,
+  Row, Col, Layout, Avatar, Icon, Button,
 } from 'antd';
+import './Foundation.css';
+
 
 const mapStateToProps = (state) => ({
   ...state.foundation,
@@ -41,26 +43,38 @@ class Foundation extends React.Component {
       <div>
         <Layout>
           <Content>
-            <Row type="flex" justify="space-around" align="middle">
-              <Col span={7} offset={4}>
-                <h1>{this.props.foundation.name}</h1>
-              </Col>
+            <div className="foundation_header">
+              <Row type="flex" justify="space-around" align="middle">
+                <Col align="bottom" offset={4} span={7}>
+                  <h1 className="foundation_name">{this.props.foundation.name}</h1>
+                  <div className="button_donate">
+                    <Button size="large" type="primary">Sponsor</Button>
+                  </div>
+                </Col>
 
-              <Col span={6}>
-                {' '}
-                {<Avatar
-                  shape="circle"
-                  size={200}
-                  icon="user"
-                />}
-              </Col>
-            </Row>
+                <Col align="center" span={8}>
+                  <div className="foundation_avatar">
+                    {' '}
+                    {<Avatar
+                      shape="circle"
+                      size={200}
+                      icon="user"
+                    />}
+                  </div>
+
+                </Col>
+              </Row>
+              <hr className="foundation_header_line" />
+            </div>
+
 
             <Row type="flex" justify="space-around" align="middle">
               <Col span={18} offset={5}>
                 <h3>
                   {' '}
-                What do we do?
+                About
+                  {' '}
+                  {this.props.foundation.name}
                 </h3>
                 <p>
                   {this.props.foundation.description}
@@ -69,24 +83,19 @@ class Foundation extends React.Component {
               </Col>
             </Row>
             <Row type="flex" justify="space-around" align="middle">
-              <Col span={11} offset={5}>
-                <h5>
-                Application Deadline
-                </h5>
+              <Col span={18} offset={5}>
+                <h3>
+                Open Grants
+                </h3>
 
-                <p>
-                  {this.props.foundation.createdAt}
-                </p>
-
-              </Col>
-              <Col span={7}>
-                <h5>
-                Amounts
-                </h5>
-                <p>250$</p>
-
+                <ol>
+                  <li> Grant  1</li>
+                  <li> Grant  2</li>
+                  <li> Grant  3</li>
+                </ol>
 
               </Col>
+
             </Row>
 
             <Row type="flex" justify="space-around" align="middle">
@@ -104,8 +113,10 @@ class Foundation extends React.Component {
 
 
             <Row type="flex" justify="space-around" align="middle">
-              <ul className="tag-list">
-                {
+              <Col span={18} offset={5}>
+
+                <ul className="tag-list">
+                  {
                   this.props.foundation.tagList.map((tag) => (
                     <li
                       className="tag-default tag-pill tag-outline"
@@ -115,18 +126,22 @@ class Foundation extends React.Component {
                     </li>
                   ))
                 }
-              </ul>
+                </ul>
+              </Col>
             </Row>
 
             <Row type="flex" justify="space-around" align="middle">
               <Col span={18} offset={5}>
                 <h3>
                   {' '}
-                About this Foundation
+                Past awards
                 </h3>
-                <p>
-                  Name of foundation
-                </p>
+
+                <ol>
+                  <li> Grantee  1</li>
+                  <li> Grantee  2</li>
+                  <li> Grantee  3</li>
+                </ol>
 
               </Col>
             </Row>
