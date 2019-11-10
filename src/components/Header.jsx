@@ -42,7 +42,7 @@ const LoggedInView = (props) => {
         </li>
 
         <li className="nav-item">
-          <Link to="/foundation" className="nav-link">
+          <Link to="/new-foundation" className="nav-link">
             <i className="ion-compose" />
             {' '}
             Create Foundation
@@ -50,7 +50,7 @@ const LoggedInView = (props) => {
         </li>
 
         <li className="nav-item">
-          <Link to="/grant" className="nav-link">
+          <Link to="/new-grant" className="nav-link">
             <i className="ion-compose" />
             {' '}
             Create Grant
@@ -89,12 +89,13 @@ const LoggedInView = (props) => {
           </Link>
         </li>
 
+
         <li className="nav-item">
           <Link
             to={`/@${props.currentUser.username}`}
             className="nav-link"
           >
-            <img src={props.currentUser.image} className="user-pic" alt={props.currentUser.username} />
+            {' '}
             {props.currentUser.username}
           </Link>
         </li>

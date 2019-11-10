@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import {
   Button, Card, Avatar, Row, Col,
 } from 'antd';
+import { Link } from 'react-router-dom';
+
 import 'antd/dist/antd.css';
 
 const mapDispatchToProps = () => ({
@@ -27,7 +29,11 @@ const FoundationPreview = (props) => {
         <div>
           <Button href={`/foundations/${name}/donate`} type="primary">Sponsor</Button>
           {' '}
-          <Button href={`/foundations/${name}`}>See More</Button>
+          <Link to={`/foundations/${name}`}>
+
+            <Button>See More</Button>
+
+          </Link>
         </div>
 )}
       style={{ marginTop: '50px' }}

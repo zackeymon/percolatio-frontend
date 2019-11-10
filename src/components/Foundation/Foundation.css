@@ -1,0 +1,29 @@
+
+
+.foundation_header {
+    margin:auto;
+    padding-block-end: 5px;
+}
+
+.foundation_name {
+    margin: 5px 15px 5px 5px;
+    padding-bottom: 10px;
+}
+
+.foundation_avatar {
+    margin: 10px;
+}
+
+.button_donate {
+    margin: 20 px;
+    padding: 40px;
+    display: inline;
+    width: 70%;
+}
+
+.foundation_header_line {
+    width: 60%;
+    height: 5px;
+    color: blue;
+}
+

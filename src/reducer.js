@@ -7,10 +7,12 @@ import common from 'reducers/common';
 import dashboard from 'reducers/dashboard';
 import editor from 'reducers/editor';
 import grantList from 'reducers/grantList';
+import grant from 'reducers/grant';
 import foundationList from 'reducers/foundationList';
 import home from 'reducers/home';
 import profile from 'reducers/profile';
 import settings from 'reducers/settings';
+import foundation from 'reducers/foundation';
 
 export default combineReducers({
   article,
@@ -19,6 +21,8 @@ export default combineReducers({
   common,
   dashboard,
   editor,
+  grant,
+  foundation,
   grantList,
   foundationList,
   home,

@@ -1,0 +1,29 @@
+
+
+.grant_header {
+    margin:auto;
+    padding-block-end: 5px;
+}
+
+.grant_name {
+    margin: 5px 15px 5px 5px;
+    padding-bottom: 10px;
+}
+
+.grant_avatar {
+    margin: 10px;
+}
+
+.button_foundation {
+    margin: 20 px;
+    padding: 40px;
+    display: inline;
+    width: 70%;
+}
+
+.grant_header_line {
+    width: 60%;
+    height: 5px;
+    color: blue;
+}
+
