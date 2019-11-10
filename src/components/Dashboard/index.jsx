@@ -12,6 +12,7 @@ import {
 import ActionCenterCard from './ActionCenterCard';
 import GrantOverviewCard from './GrantOverviewCard';
 import FoundationOverviewCard from './FoundationOverviewCard';
+import FoundationTab from './FoundationTab';
 
 const { TabPane } = Tabs;
 
@@ -32,14 +33,13 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class Dashboard extends React.Component {
-  constructor(props) {
-    super(props);
-    props.onLoad(agent.Foundations.byFounder(props.currentUser.username));
+  componentDidMount() {
+    this.props.onLoad(agent.Foundations.byFounder(this.props.currentUser.username));
   }
 
-  componentWillUnmount() {
-    this.props.onUnload();
-  }
+  // componentWillUnmount() {
+  //   this.props.onUnload();
+  // }
 
   render() {
     const operations = (
@@ -79,9 +79,7 @@ class Dashboard extends React.Component {
               && this.props.foundations.map(
                 (foundation) => (
                   <TabPane tab={foundation.name} key={foundation.name}>
-                    {/* should refactor this bit into a separate component */}
-                    <h1>{foundation.name}</h1>
-                    <p>{foundation.description}</p>
+                    <FoundationTab foundation={foundation} />
                   </TabPane>
                 ),
               )}

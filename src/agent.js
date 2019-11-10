@@ -64,6 +64,7 @@ const Articles = {
 
 const Grants = {
   all: (page) => requests.get(`/grants?${limit(10, page)}`),
+  byFoundation: (foundation) => requests.get(`/grants?foundation=${foundation}`),
   byAuthor: (author, page) => requests.get(`/grants?author=${encode(author)}&${limit(5, page)}`),
   byTag: (tag, page) => requests.get(`/grants?tag=${encode(tag)}&${limit(10, page)}`),
   del: (slug) => requests.del(`/grants/${slug}`),
