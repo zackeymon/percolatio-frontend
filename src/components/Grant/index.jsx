@@ -6,6 +6,7 @@ import { GRANT_PAGE_LOADED, GRANT_PAGE_UNLOADED } from 'constants/actionTypes';
 import {
   Row, Col, Layout, Avatar, Button, Icon,
 } from 'antd';
+import './Grant.css';
 
 const mapStateToProps = (state) => ({
   ...state.grant,
@@ -41,36 +42,44 @@ class Grant extends React.Component {
       <div>
         <Layout>
           <Content>
-            <Row type="flex" justify="space-around" align="middle">
-              <Col span={7} offset={4}>
-                <h1>{this.props.grant.title}</h1>
-              </Col>
+            <div className="grant_header">
+              <Row type="flex" justify="space-around" align="middle">
+                <Col span={7} offset={4}>
+                  <h1>{this.props.grant.title}</h1>
+                  <div>
+                    <Button href="/apply" size="large" type="primary">Apply</Button>
 
-              <Col span={6}>
-                {' '}
-                {<Avatar
-                  shape="circle"
-                  size={200}
-                  icon="user"
-                />}
-              </Col>
-            </Row>
-            <Row type="flex" justify="space-around" align="middle">
+                  </div>
+                </Col>
 
-              <Col span={4} offset={4}>
-                <Button href="/apply" size="large" type="primary">Apply</Button>
-              </Col>
+                <Col align="center" span={6}>
+                  <div className="foundation_avatar">
+                    {' '}
+                    {<Avatar
+                      shape="circle"
+                      size={200}
+                      icon="user"
+                    />}
+                  </div>
+                  <div className="button_foundation">
+                    <Button href="/apply">About this foundation</Button>
+                  </div>
 
-              <Col span={5} offset={1}>
-                <Button href="/apply">About this foundation</Button>
-              </Col>
-            </Row>
+                </Col>
+              </Row>
+
+              <hr className="grant_header_line" />
+
+
+            </div>
 
             <Row type="flex" justify="space-around" align="middle">
               <Col span={18} offset={5}>
                 <h3>
                   {' '}
-                Short Description of this Grant
+                About
+                  {' '}
+                  {this.props.grant.title}
                 </h3>
                 <p>
                   {this.props.grant.description}
@@ -79,22 +88,27 @@ class Grant extends React.Component {
               </Col>
             </Row>
             <Row type="flex" justify="space-around" align="middle">
-              <Col span={11} offset={5}>
-                <h5>
-                Application Deadline
-                </h5>
+              <Col span={18} offset={5}>
+                <h3>
+                Key dates
+                </h3>
 
                 <p>
                   {this.props.grant.createdAt}
                 </p>
 
               </Col>
-              <Col span={7}>
-                <h5>
-                Amounts
-                </h5>
-                <p>250$</p>
 
+            </Row>
+
+            <Row type="flex" justify="space-around" align="middle">
+
+
+              <Col span={18} offset={5}>
+                <h3>
+                Amount
+                </h3>
+                <p>250$</p>
 
               </Col>
             </Row>
@@ -114,8 +128,9 @@ class Grant extends React.Component {
 
 
             <Row type="flex" justify="space-around" align="middle">
-              <ul className="tag-list">
-                {
+              <Col span={18} offset={5}>
+                <ul className="tag-list">
+                  {
                   this.props.grant.tagList.map((tag) => (
                     <li
                       className="tag-default tag-pill tag-outline"
@@ -125,7 +140,8 @@ class Grant extends React.Component {
                     </li>
                   ))
                 }
-              </ul>
+                </ul>
+              </Col>
             </Row>
 
             <Row type="flex" justify="space-around" align="middle">
@@ -136,6 +152,7 @@ class Grant extends React.Component {
                 </h3>
                 <p>
                   {this.props.grant.founder}
+                  Lorem ipusm hdfhjkashfkjsdahkfhsdf
                 </p>
 
               </Col>
