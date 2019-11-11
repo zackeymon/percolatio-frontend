@@ -46,31 +46,39 @@ const GrantPreview = (props) => {
             />}
           </Col>
           <Col span={13}>
-            <ul>
-              <li>
-                Foundation:
-                {' '}
-                {`${foundation.name}`}
-              </li>
-              <li>
-                Description:
-                {''}
-                {`${grant.description}`}
-              </li>
+            <h3 style={{ margin: '5px' }}>
+              {`${foundation.name}`}
+            </h3>
+            <div style={{ margin: '5px' }}>
+              {''}
+              {`${grant.description}`}
+            </div>
+
+            <ul className="tag-list">
+              {
+                  grant.tagList.map((tag) => (
+                    <li
+                      className="tag-default tag-pill tag-outline"
+                      key={tag}
+                    >
+                      {tag}
+                    </li>
+                  ))
+                }
             </ul>
 
           </Col>
           <Col span={6}>
-            <Row>
-              Deadline: 17-02-2020
-            </Row>
-
-            <Row>
-              Amount:
+            <div style={{ margin: '5px' }}>
+              <strong>Deadline:</strong>
+              {' '}
+              {typeof grant.createdAt}
+            </div>
+            <div style={{ margin: '5px' }}>
+              <strong>Amount:</strong>
               {' '}
               {`${grant.amount}`}
-            </Row>
-
+            </div>
           </Col>
         </Row>
       </div>

@@ -50,18 +50,25 @@ const FoundationPreview = (props) => {
             </Avatar>
           </Col>
           <Col span={13}>
-            <ul>
-              <li>
-              Description:
-                {''}
-                {`${description}`}
-              </li>
 
-              <li>
-                Tags:
-                {''}
-                {`${tagList}`}
-              </li>
+            <div>
+            Description:
+              {''}
+              {`${description}`}
+
+            </div>
+
+            <ul className="tag-list">
+              {
+                  foundation.tagList.map((tag) => (
+                    <li
+                      className="tag-default tag-pill tag-outline"
+                      key={tag}
+                    >
+                      {tag}
+                    </li>
+                  ))
+                }
             </ul>
 
           </Col>

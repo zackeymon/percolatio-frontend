@@ -62,16 +62,6 @@ class SettingsForm extends React.Component {
 
           <fieldset className="form-group">
             <input
-              className="form-control"
-              type="text"
-              placeholder="URL of profile picture"
-              value={this.state.image}
-              onChange={this.updateState('image')}
-            />
-          </fieldset>
-
-          <fieldset className="form-group">
-            <input
               className="form-control form-control-lg"
               type="text"
               placeholder="Username"
