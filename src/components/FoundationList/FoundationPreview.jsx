@@ -6,6 +6,7 @@ import {
 import { Link } from 'react-router-dom';
 
 import 'antd/dist/antd.css';
+import Donation from '../Foundation/Donation';
 
 const mapDispatchToProps = () => ({
   favorite: () => (
@@ -27,9 +28,9 @@ const FoundationPreview = (props) => {
       title={name}
       extra={(
         <div>
-          <Button href={`/foundations/${name}/donate`} type="primary">Sponsor</Button>
+          <Button href={`/foundation/${name}`} type="primary">Sponsor</Button>
           {' '}
-          <Link to={`/foundations/${name}`}>
+          <Link to={`/foundation/${name}`}>
 
             <Button>See More</Button>
 
