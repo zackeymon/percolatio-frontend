@@ -1,4 +1,4 @@
-.logo-font{font-family:titillium web,sans-serif}
+.logo-font{font-family:titillium web,sans-serif; color: rgb(252, 241, 241);}
 html{position:relative;min-height:100vh;padding-bottom:100px}
 html {font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
 body{margin:0}
@@ -737,7 +737,7 @@ input[type=submit].btn-block,input[type=reset].btn-block,input[type=button].btn-
 .navbar-sticky-top{position:sticky;top:0;z-index:1030;width:100%}
 @media(min-width:544px){.navbar-sticky-top{border-radius:0}
 }
-.navbar-brand{float:left;padding-top:.25rem;padding-bottom:.25rem;margin-right:1rem;font-size:1.25rem}
+.navbar-brand{float:left;padding-top:.25rem;padding-bottom:.25rem;margin-right:1rem;font-size:1.25rem; color: cornflowerblue}
 .navbar-brand:focus,.navbar-brand:hover{text-decoration:none}
 .navbar-brand>img{display:block}
 .navbar-divider{float:left;width:1px;padding-top:.425rem;padding-bottom:.425rem;margin-right:1rem;margin-left:1rem;overflow:hidden}
@@ -1322,7 +1322,7 @@ a.text-danger:focus,a.text-danger:hover{color:#9d4444}
 .tag-default.tag-outline{border:1px solid #ddd;color:#aaa!important;background:0 0!important}
 ul.tag-list{padding-left:0!important;display:inline-block;list-style:none!important}
 ul.tag-list li{display:inline-block!important}
-.navbar-brand{font-family:titillium web,sans-serif;font-size:1.5rem!important;padding-top:0!important;margin-right:2rem!important;color:#5cb85c!important}
+.navbar-brand{font-family:titillium web,sans-serif;font-size:1.5rem!important;padding-top:0!important;margin-right:2rem!important;color:#478dc7!important}
 .nav-link .user-pic{height:26px;border-radius:50px;float:left;margin-right:5px}
 .nav-link:hover{transition:.1s all}
 .nav-pills.outline-active .nav-link{border-radius:0;border:none;border-bottom:2px solid transparent;background:0 0;color:#aaa}
@@ -1332,7 +1332,7 @@ footer{background:#f3f3f3;margin-top:3rem;padding:1rem 0;position:absolute;botto
 footer .logo-font{vertical-align:middle}
 footer .attribution{vertical-align:middle;margin-left:10px;font-size:.8rem;color:#bbb;font-weight:300}
 .error-messages{color:#b85c5c!important;font-weight:700}
-.banner{color:#fff;background:#333;padding:2rem;margin-bottom:2rem}
+.banner{color:rgb(19, 161, 218);background:rgb(43, 119, 233);padding:2rem;margin-bottom:2rem}
 .banner h1{text-shadow:0 1px 3px rgba(0,0,0,.3);margin-bottom:0}
 .container.page{margin-top:1.5rem}
 .preview-link{color:inherit!important}
@@ -1350,7 +1350,7 @@ footer .attribution{vertical-align:middle;margin-left:10px;font-size:.8rem;color
 .article-preview .preview-link ul{float:right;max-width:50%;vertical-align:top}
 .article-preview .preview-link ul li{font-weight:300;font-size:.8rem!important;padding-top:0!important;padding-bottom:0!important}
 .btn .counter{font-size:.8rem!important}
-.home-page .banner{background:#5cb85c;box-shadow:inset 0 8px 8px -8px rgba(0,0,0,.3),inset 0 -8px 8px -8px rgba(0,0,0,.3)}
+.home-page .banner{background:#83a6db;box-shadow:inset 0 8px 8px -8px rgba(255, 254, 254, 0.3),inset 0 -8px 8px -8px rgba(0,0,0,.3)}
 .home-page .banner p{color:#fff;text-align:center;font-size:1.5rem;font-weight:300!important;margin-bottom:0}
 .home-page .banner h1{text-shadow:0 1px 3px rgba(0,0,0,.3);font-weight:700!important;text-align:center;font-size:3.5rem;padding-bottom:.5rem}
 .home-page .feed-toggle{margin-bottom:-1px}
