@@ -38,17 +38,17 @@ const GrantPreview = (props) => {
     >
       <div>
         <Row type="flex" justify="space-around" align="middle">
-          <Col span={5}>
+          <Col span={4}>
             {<Avatar
               shape="circle"
               size={80}
               icon="user"
             />}
           </Col>
-          <Col span={13}>
-            <h3 style={{ margin: '5px' }}>
+          <Col span={12}>
+            <h5 style={{ margin: '10px' }}>
               {`${foundation.name}`}
-            </h3>
+            </h5>
             <div style={{ margin: '5px' }}>
               {''}
               {`${grant.description}`}
@@ -68,16 +68,21 @@ const GrantPreview = (props) => {
             </ul>
 
           </Col>
-          <Col span={6}>
+          <Col span={8}>
             <div style={{ margin: '5px' }}>
-              <strong>Deadline:</strong>
+              <strong>Application Open:</strong>
               {' '}
-              {typeof grant.createdAt}
+              {grant.applicationsStartDate}
+            </div>
+            <div style={{ margin: '5px' }}>
+              <strong>Application Deadline:</strong>
+              {' '}
+              {grant.applicationsEndDate}
             </div>
             <div style={{ margin: '5px' }}>
               <strong>Amount:</strong>
               {' '}
-              {`${grant.amount}`}
+              {`${grant.amountPerGrantee}`}
             </div>
           </Col>
         </Row>
