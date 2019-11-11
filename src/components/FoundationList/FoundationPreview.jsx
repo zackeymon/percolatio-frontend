@@ -25,7 +25,7 @@ const FoundationPreview = (props) => {
   return (
 
     <Card
-      title={name}
+      title={<Link to={`/foundation/${name}`} className="preview-link">{name}</Link>}
       extra={(
         <div>
           <Button href={`/foundation/${name}`} type="primary">Sponsor</Button>
