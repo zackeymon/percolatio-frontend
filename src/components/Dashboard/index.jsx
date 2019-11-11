@@ -54,9 +54,9 @@ class Dashboard extends React.Component {
     return (
       <div className="container page">
         <h1>
-          yo
-          {' '}
           {this.props.currentUser.username}
+          {' '}
+          HQ
         </h1>
         <Row>
           <Tabs defaultActiveKey="overview" tabBarExtraContent={operations}>

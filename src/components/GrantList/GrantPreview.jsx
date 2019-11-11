@@ -38,39 +38,52 @@ const GrantPreview = (props) => {
     >
       <div>
         <Row type="flex" justify="space-around" align="middle">
-          <Col span={5}>
+          <Col span={4}>
             {<Avatar
               shape="circle"
               size={80}
               icon="user"
             />}
           </Col>
-          <Col span={13}>
-            <ul>
-              <li>
-                Foundation:
-                {' '}
-                {`${foundation.name}`}
-              </li>
-              <li>
-                Description:
-                {''}
-                {`${grant.description}`}
-              </li>
+          <Col span={12}>
+            <h5 style={{ margin: '10px' }}>
+              {`${foundation.name}`}
+            </h5>
+            <div style={{ margin: '5px' }}>
+              {''}
+              {`${grant.description}`}
+            </div>
+
+            <ul className="tag-list">
+              {
+                  grant.tagList.map((tag) => (
+                    <li
+                      className="tag-default tag-pill tag-outline"
+                      key={tag}
+                    >
+                      {tag}
+                    </li>
+                  ))
+                }
             </ul>
 
           </Col>
-          <Col span={6}>
-            <Row>
-              Deadline: 17-02-2020
-            </Row>
-
-            <Row>
-              Amount:
+          <Col span={8}>
+            <div style={{ margin: '5px' }}>
+              <strong>Application Open:</strong>
               {' '}
-              {`${grant.amount}`}
-            </Row>
-
+              {grant.applicationsStartDate}
+            </div>
+            <div style={{ margin: '5px' }}>
+              <strong>Application Deadline:</strong>
+              {' '}
+              {grant.applicationsEndDate}
+            </div>
+            <div style={{ margin: '5px' }}>
+              <strong>Amount:</strong>
+              {' '}
+              {`${grant.amountPerGrantee}`}
+            </div>
           </Col>
         </Row>
       </div>
