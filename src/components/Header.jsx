@@ -2,17 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import UserMenu from './UserMenu';
 
+import { Layout, Menu } from 'antd';
+const { Header, Content, Footer } = Layout;
+
 const LoggedOutView = (props) => {
   if (!props.currentUser) {
     return (
       <ul className="nav navbar-nav pull-xs-right">
-
-        <li className="nav-item">
-          <Link to="/" className="nav-link">
-            Home
-          </Link>
-        </li>
-
         <li className="nav-item">
           <Link to="/login" className="nav-link">
             Sign in
@@ -35,13 +31,6 @@ const LoggedInView = (props) => {
   if (props.currentUser) {
     return (
       <ul className="nav navbar-nav pull-xs-right">
-
-        <li id="home" className="nav-item">
-          <Link to="/" className="nav-link">
-            Home
-          </Link>
-        </li>
-
         <li className="nav-item">
           <Link to="/new-foundation" className="nav-link">
             <i className="ion-compose" />
@@ -86,20 +75,32 @@ const LoggedInView = (props) => {
 };
 
 
-const Header = (props) => (
-  <nav className="navbar navbar-light">
-    <div className="container">
+const pHeader = (props) => (
 
-      <Link to="/" className="navbar-brand">
-        {props.appName.toLowerCase()}
-      </Link>
+  <Header>
+    <Link to="/" className="navbar-brand">
+      {/* {props.appName.toLowerCase()} */}
+      <img src="https://s3.eu-west-2.amazonaws.com/percolation.images/frontend/logoName.png" width='15%' height='15%' />
+    </Link>
 
-      <LoggedOutView currentUser={props.currentUser} />
-
-      <LoggedInView currentUser={props.currentUser} />
-    </div>
-  </nav>
+    <Menu
+      theme="dark"
+      mode="horizontal"
+      defaultSelectedKeys={['2']}
+      style={{ lineHeight: '64px' }}
+    >
+      <Menu.Item key="1">nav 1</Menu.Item>
+      <Menu.Item key="2">nav 2</Menu.Item>
+      <Menu.Item key="3">nav 3</Menu.Item>
+    </Menu>
+  </Header>
+  // <nav className="navbar navbar-light">
+  //   <div className="container">
+  // {/* <LoggedOutView currentUser={props.currentUser} /> */ }
+  // {/* <LoggedInView currentUser={props.currentUser} /> */ }
+  //   </div>
+  // </nav>
 );
 
 
-export default Header;
+export default pHeader;

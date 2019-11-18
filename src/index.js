@@ -4,15 +4,15 @@ import React from 'react';
 
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
+import LandingPage from 'components/LandingPage/LandingPage';
 import App from 'components/App';
 import { store, history } from 'store';
-
 
 ReactDOM.render((
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Switch>
-        <Route path="/" component={App} />
+        <Route path="/" component={LandingPage} />
       </Switch>
     </ConnectedRouter>
   </Provider>
