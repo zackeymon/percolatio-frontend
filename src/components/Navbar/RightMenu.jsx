@@ -8,14 +8,14 @@ const MenuItemGroup = Menu.ItemGroup;
 const RightMenu = () => (
   <Menu mode="horizontal">
     <Menu.Item key="mail">
-      <Link to="/login" className="nav-link">
+      {/* <Link to="/login" className="nav-link">
         Sign in
       </Link>
     </Menu.Item>
     <Menu.Item key="app">
       <Link to="/register" className="nav-link">
         Sign up
-      </Link>
+      </Link> */}
     </Menu.Item>
   </Menu>
 );

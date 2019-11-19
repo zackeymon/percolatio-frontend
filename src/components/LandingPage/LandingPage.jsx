@@ -3,27 +3,28 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { APP_LOAD, REDIRECT } from 'constants/actionTypes';
 import { Typography } from 'antd';
-import { Route, Switch } from 'react-router-dom';
-import { store } from 'store';
-import { push } from 'react-router-redux';
 
-import { Layout, List, Button, Menu } from 'antd';
+import { message, Layout, List, Button, Menu } from 'antd';
 import { Card, Icon, Avatar } from 'antd';
 import { Row, Col } from 'antd';
 import { Input } from 'antd';
 import NavBar from '../Navbar/index'
+import isEmail from 'validator/lib/isEmail';
 
 import './LandingPage.css';
 
-const { Footer, Sider, Content, Header } = Layout;
+const queryString = require('query-string');
+
+const { Search } = Input;
+const { Content } = Layout;
 const { Title } = Typography;
-const { Meta } = Card;
+
+const mailChimpUrl = "https://gmail.us20.list-manage.com/subscribe/post?u=6ab97c6731c30a65057839edf&id=7b65cebef7"
+const getAjaxUrl = mailChimpUrl => mailChimpUrl.replace("/post?", "/post-json?");
+const request = require('request');
 
 const mapStateToProps = (state) => ({
-  // appLoaded: state.common.appLoaded,
   appName: state.common.appName,
-  // currentUser: state.common.currentUser,
-  // redirectTo: state.common.redirectTo,
 });
 
 
@@ -36,12 +37,27 @@ const mapDispatchToProps = (dispatch) => ({
   }),
 });
 
-class LandingPage extends React.Component {
-  componentWillMount() {
-  }
+const subscribe = data => {
 
-  componentWillReceiveProps(nextProps) {
+  if (!isEmail(data)) {
+    message.error('The email address provided does not seem valid');
+    return
   }
+  const params = queryString.stringify(data);
+  const url = getAjaxUrl(mailChimpUrl) + "&" + params;
+
+  request.post(url,
+    function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        message.info('Thank you, we will stay in touch');
+      }
+    });
+};
+
+class LandingPage extends React.Component {
+  componentWillMount() { }
+
+  componentWillReceiveProps(nextProps) { }
 
   render() {
     return (
@@ -57,10 +73,11 @@ class LandingPage extends React.Component {
                 <p>
                   Subscribe to our newsletter to stay updated and get early access to our private beta.
                 </p>
-                <Input.Group compact>
-                  <Input type="mail" style={{ width: '200px' }} placeholder="Your email" />
-                  <Button type="primary">Subscribe</Button>
-                </Input.Group>
+                <Search
+                  placeholder="Your email"
+                  enterButton="Subscribe"
+                  onSearch={subscribe}
+                />
               </Col>
               <Col span={8}>
                 <img alt="Percolatio logo" src='https://s3.eu-west-2.amazonaws.com/percolation.images/frontend/logo.png' />
@@ -78,28 +95,28 @@ class LandingPage extends React.Component {
             <Row gutter={16} type="flex" justify="space-around" align="middle">
               <Col className="gutter-row" span={6}>
                 <div className="gutter-box" type="flex" justify="space-around" align="middle">
-                  <Icon className="icons-steps" type="rocket" />
+                  <Icon style={{ fontSize: '55px', color: '#007687ff' }} type="rocket" />
                   <Title level={4}>Step 1: Setup a Foundation</Title>
                   <p>elit at imperdiet dui accumsan sit amet nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet non curabitur gravida arcu ac tortor dignissim convallis aenean et tortor at risus.</p>
                 </div>
               </Col>
               <Col className="gutter-row" span={6}>
                 <div className="gutter-box" type="flex" justify="space-around" align="middle">
-                  <Icon className="icons-steps" type="audit" />
+                  <Icon style={{ fontSize: '55px' }} type="audit" />
                   <Title level={4}>Step 2: Create a Grant</Title>
                   <p> elit at imperdiet dui accumsan sit amet nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet non curabitur gravida arcu ac tortor dignissim convallis aenean et tortor at risus.</p>
                 </div>
               </Col>
               <Col className="gutter-row" span={6}>
                 <div className="gutter-box" type="flex" justify="space-around" align="middle">
-                  <Icon className="icons-steps" type="twitter" />
+                  <Icon style={{ fontSize: '55px', color: '#1DA1F2' }} type="twitter" />
                   <Title level={4}>Step 3: Share it on Social Media</Title>
                   <p>elit at imperdiet dui accumsan sit amet nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet non curabitur gravida arcu ac tortor dignissim convallis aenean et tortor at risus</p>
                 </div>
               </Col>
               <Col className="gutter-row" span={6}>
                 <div className="gutter-box" type="flex" justify="space-around" align="middle">
-                  <Icon className="icons-steps" type="bulb" />
+                  <Icon style={{ fontSize: '55px', color: '#00d894ff' }} type="bulb" />
                   <Title level={4}>Step 4: Ideas</Title>
                   <p>elit at imperdiet dui accumsan sit amet nulla facilisi morbi tempus iaculis urna id volutpat lacus laoreet non curabitur gravida arcu ac tortor dignissim convallis aenean et tortor at risus</p>
                 </div>
