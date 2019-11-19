@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { Drawer, Button } from 'antd';
 import LeftMenu from './LeftMenu';
 import RightMenu from './RightMenu';
+import './Navbar.css';
 
 class Navbar extends Component {
-	state = {
-	  current: 'mail',
-	  visible: false,
-	}
+  state = {
+    current: 'mail',
+    visible: false,
+  }
 
   showDrawer = () => {
     this.setState({
@@ -25,7 +26,7 @@ class Navbar extends Component {
     return (
       <nav className="menuBar">
         <div className="logo">
-          <a href="/">logo</a>
+          <img href="/" src="https://s3.eu-west-2.amazonaws.com/percolation.images/frontend/logoName.png" height="120%" width="120%" />
         </div>
         <div className="menuCon">
           <div className="leftMenu">
@@ -38,7 +39,7 @@ class Navbar extends Component {
             <span className="barsBtn" />
           </Button>
           <Drawer
-            title="Basic Drawer"
+            title="Menu"
             placement="right"
             closable={false}
             onClose={this.onClose}
