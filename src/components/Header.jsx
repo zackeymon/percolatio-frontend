@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import UserMenu from './UserMenu';
 
 const LoggedOutView = (props) => {
   if (!props.currentUser) {
@@ -35,7 +36,7 @@ const LoggedInView = (props) => {
     return (
       <ul className="nav navbar-nav pull-xs-right">
 
-        <li className="nav-item">
+        <li id="home" className="nav-item">
           <Link to="/" className="nav-link">
             Home
           </Link>
@@ -66,14 +67,6 @@ const LoggedInView = (props) => {
         </li>
 
         <li className="nav-item">
-          <Link to="/editor" className="nav-link">
-            <i className="ion-compose" />
-            {' '}
-            New Article
-          </Link>
-        </li>
-
-        <li className="nav-item">
           <Link to="/dashboard" className="nav-link">
             <i className="ion-compose" />
             {' '}
@@ -82,22 +75,7 @@ const LoggedInView = (props) => {
         </li>
 
         <li className="nav-item">
-          <Link to="/settings" className="nav-link">
-            <i className="ion-gear-a" />
-            {' '}
-            Settings
-          </Link>
-        </li>
-
-
-        <li className="nav-item">
-          <Link
-            to={`/@${props.currentUser.username}`}
-            className="nav-link"
-          >
-            {' '}
-            {props.currentUser.username}
-          </Link>
+          <UserMenu user={props.currentUser.username} style={{ border: '3px' }} />
         </li>
 
       </ul>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'antd';
 
 
 class SettingsForm extends React.Component {
@@ -61,16 +62,6 @@ class SettingsForm extends React.Component {
 
           <fieldset className="form-group">
             <input
-              className="form-control"
-              type="text"
-              placeholder="URL of profile picture"
-              value={this.state.image}
-              onChange={this.updateState('image')}
-            />
-          </fieldset>
-
-          <fieldset className="form-group">
-            <input
               className="form-control form-control-lg"
               type="text"
               placeholder="Username"
@@ -109,13 +100,16 @@ class SettingsForm extends React.Component {
             />
           </fieldset>
 
-          <button
-            className="btn btn-lg btn-primary pull-xs-right"
-            type="submit"
+          <Button
+            type="primary"
             disabled={this.state.inProgress}
+            size="large"
+            style={{ float: 'right' }}
+            block
+            onClick={this.submitForm}
           >
               Update Settings
-          </button>
+          </Button>
 
         </fieldset>
       </form>

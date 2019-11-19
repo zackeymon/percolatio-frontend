@@ -6,6 +6,7 @@ import {
 import { Link } from 'react-router-dom';
 
 import 'antd/dist/antd.css';
+import Donation from '../Foundation/Donation';
 
 const mapDispatchToProps = () => ({
   favorite: () => (
@@ -24,12 +25,12 @@ const FoundationPreview = (props) => {
   return (
 
     <Card
-      title={name}
+      title={<Link to={`/foundation/${name}`} className="preview-link">{name}</Link>}
       extra={(
         <div>
-          <Button href={`/foundations/${name}/donate`} type="primary">Sponsor</Button>
+          <Button href={`/foundation/${name}`} type="primary">Sponsor</Button>
           {' '}
-          <Link to={`/foundations/${name}`}>
+          <Link to={`/foundation/${name}`}>
 
             <Button>See More</Button>
 
@@ -41,25 +42,33 @@ const FoundationPreview = (props) => {
       <div>
         <Row type="flex" justify="space-around" align="middle">
           <Col span={5}>
-            {<Avatar
+            <Avatar
               shape="circle"
               size={80}
-              icon="user"
-            />}
+            >
+              {name.charAt(0)}
+            </Avatar>
           </Col>
           <Col span={13}>
-            <ul>
-              <li>
-              Description:
-                {''}
-                {`${description}`}
-              </li>
 
-              <li>
-                Tags:
-                {''}
-                {`${tagList}`}
-              </li>
+            <div>
+            Description:
+              {''}
+              {`${description}`}
+
+            </div>
+
+            <ul className="tag-list">
+              {
+                  foundation.tagList.map((tag) => (
+                    <li
+                      className="tag-default tag-pill tag-outline"
+                      key={tag}
+                    >
+                      {tag}
+                    </li>
+                  ))
+                }
             </ul>
 
           </Col>
