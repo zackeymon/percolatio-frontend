@@ -62,7 +62,6 @@ class LandingPage extends React.Component {
         <NavBar />
         <Content>
           <div style={{ backgroundColor: 'white', paddingTop: 20 }}>
-
             <Row type="flex" style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 50 }}>
               <Col offset={1}>
                 <Title level={1}>{landingPageStrings.en.Title}</Title>
@@ -74,7 +73,7 @@ class LandingPage extends React.Component {
                   placeholder={landingPageStrings.en.Subscribe.Placeholder}
                   enterButton={landingPageStrings.en.Subscribe.ButtonText}
                   onSearch={subscribe}
-                  style={{ width: 200 }}
+                  style={{ width: 300 }}
                 />
               </Col>
               <Col span={8}>
