@@ -26,7 +26,13 @@ class Navbar extends Component {
     return (
       <nav className="menuBar">
         <div className="logo">
-          <img href="/" src="https://s3.eu-west-2.amazonaws.com/percolation.images/frontend/logoName.png" height="120%" width="120%" />
+          <img
+            href="/"
+            alt="percolatio logo"
+            src="https://s3.eu-west-2.amazonaws.com/percolation.images/frontend/logoName.png"
+            height="120%"
+            width="120%"
+          />
         </div>
         <div className="menuCon">
           <div className="leftMenu">

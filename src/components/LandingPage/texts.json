@@ -1,0 +1,31 @@
+{
+    "en": {
+        "Title": "Percolatio",
+        "Subtitle": "The platform for seed stage philanthropy.",
+        "Subscribe": {
+            "Title": "Subscribe to our newsletter to stay updated and get early access to our private beta.",
+            "Placeholder": "Your email",
+            "ButtonText": "Subscribe"
+        },
+        "HowItWorks": {
+            "Title": "How does it work?",
+            "Subtitle": "You dont have to be a millionaire or leave your job to become a philanthropist.",
+            "Step1": {
+                "Title": "Step 1: Setup a Foundation",
+                "Text": "Foundations are digital organizations that you can create on the fly. You can use them to share your vision and attract applicants or sponsors who view the world the same way you do."
+            },
+            "Step2": {
+                "Title": "Step 2: Create a Grant",
+                "Text": "Grants are issued by foundations and they are non-repayable funds given to applicants. You can be perspective on the grant subject or you can let the applicants amaze you with their ides. It is up to you."
+            },
+            "Step3": {
+                "Title": "Step 3: Share it on Social Media",
+                "Text": "Sharing a grant on social media makes a huge difference. It will help you attract better candidates and more sponsors."
+            },
+            "Step4": {
+                "Title": "Step 4: Ideas",
+                "Text": "Enjoy reading all the amazing ideas that you just received. Award the grant to the one you like the most and watch the progress."
+            }
+        }
+    }
+}
