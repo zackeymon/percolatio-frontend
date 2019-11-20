@@ -5,6 +5,8 @@ import { APP_LOAD, REDIRECT } from 'constants/actionTypes';
 import { Route, Switch } from 'react-router-dom';
 import { store } from 'store';
 import { push } from 'react-router-redux';
+import LandingPage from 'components/LandingPage';
+import { withRouter } from 'react-router';
 import Article from './Article';
 import Editor from './Editor';
 import Header from './Header';
@@ -15,9 +17,7 @@ import ProfileFavorites from './ProfileFavorites';
 import Register from './Register';
 import Dashboard from './Dashboard';
 import Settings from './Settings';
-import GrantFormPage from './GrantFormPage';
 import ApplicationFormPage from './ApplicationFormPage';
-import FoundationFormPage from './FoundationFormPage';
 import Grant from './Grant';
 import Foundation from './Foundation';
 
@@ -38,7 +38,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 class App extends React.Component {
-  componentWillMount() {
+  constructor(props) {
+    super(props);
     const token = window.localStorage.getItem('jwt');
     if (token) {
       agent.setToken(token);
@@ -59,12 +60,16 @@ class App extends React.Component {
     if (this.props.appLoaded) {
       return (
         <div>
-          <Header
-            appName={this.props.appName}
-            currentUser={this.props.currentUser}
-          />
+          {this.props.location.pathname !== '/'
+            && (
+              <Header
+                appName={this.props.appName}
+                currentUser={this.props.currentUser}
+              />
+            )}
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={LandingPage} />
+            <Route path="/homehome" component={Home} />
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
@@ -92,4 +97,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
