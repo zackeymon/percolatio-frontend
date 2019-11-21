@@ -7,6 +7,5 @@
     "Image": {
         "Name": "hub.docker.com/repository/docker/percolatio/percolatio-frontend",
         "Update": "true"
-    },
-    "Logging": "/var/log/nginx"
+    }
 }
