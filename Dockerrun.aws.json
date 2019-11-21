@@ -2,7 +2,7 @@
     "AWSEBDockerrunVersion": "1",
     "Authentication": {
         "Bucket": "percolatio.docker",
-        "Key": "config"
+        "Key": "config.json"
     },
     "Image": {
         "Name": "hub.docker.com/repository/docker/percolatio/percolatio-frontend",
