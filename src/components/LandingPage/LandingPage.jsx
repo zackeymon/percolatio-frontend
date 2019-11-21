@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { APP_LOAD, REDIRECT } from 'constants/actionTypes';
 import {
-  Typography, message, Layout, Row, Col, Input,
+  Typography, message, Layout, Row, Col, Input, Icon,
 } from 'antd';
 import isEmail from 'validator/lib/isEmail';
 import NavBar from '../Navbar/index';
@@ -15,7 +15,7 @@ const request = require('request');
 const landingPageStrings = require('./texts.json');
 
 const { Search } = Input;
-const { Content } = Layout;
+const { Content, Footer } = Layout;
 const { Title } = Typography;
 
 const mailChimpUrl = 'https://gmail.us20.list-manage.com/subscribe/post?u=6ab97c6731c30a65057839edf&id=7b65cebef7';
@@ -37,7 +37,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const subscribe = (data) => {
   if (!isEmail(data)) {
-    message.error('The email address provided does not seem valid');
+    message.error('The email address provided does not seem to be valid');
     return;
   }
   const params = queryString.stringify(data);
@@ -58,10 +58,11 @@ class LandingPage extends React.Component {
 
   render() {
     return (
-      <Layout>
+      <Layout class="open-sans-font" style={{backgroundColor: 'white'}}>
+      
         <NavBar />
-        <Content>
-          <div style={{ backgroundColor: 'white', paddingTop: 20 }}>
+        <Content style={{paddingTop: 30, paddingLeft:30, paddingRight: 30 }}>
+     
             <Row type="flex" style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 50 }}>
               <Col offset={1}>
                 <Title level={1}>{landingPageStrings.en.Title}</Title>
@@ -76,27 +77,28 @@ class LandingPage extends React.Component {
                   style={{ width: 300 }}
                 />
               </Col>
-              <Col span={8}>
+              <Col offset={1} span={7}>
                 <img
                   alt="Percolatio logo"
                   src="https://s3.eu-west-2.amazonaws.com/percolation.images/frontend/logo.png"
                   height="auto"
-                  width="100%"
+                  width="70%"
                 />
               </Col>
             </Row>
-
+          <div style= {{"padding":'50px'}}>
             <Row type="flex" justify="space-around" align="middle">
               <Title level={2}>
                 {landingPageStrings.en.HowItWorks.Title}
               </Title>
             </Row>
 
-            <Row type="flex" justify="space-around" align="middle">
+            <Row paddingBottom={8} type="flex" justify="space-around" align="middle">
               {landingPageStrings.en.HowItWorks.Subtitle}
             </Row>
+            </div>
 
-            <Row gutter={16} type="flex" justify="center" align="top">
+            <Row  type="flex" justify="center" align="top" style={{"margin":"10px 10px"}}>
               <LandingPageCard
                 title={landingPageStrings.en.HowItWorks.Step1.Title}
                 text={landingPageStrings.en.HowItWorks.Step1.Text}
@@ -122,8 +124,14 @@ class LandingPage extends React.Component {
                 icon="bulb"
               />
             </Row>
-          </div>
+         
         </Content>
+        <Footer style={{'textAlign':'center', position: "sticky", bottom: "0" ,'backgroundColor':'white'}}>
+          Made with <Icon type="heart" theme="twoTone" twoToneColor="#eb2f96" /> by Percolatio.  
+          Follow us on <a href="https://twitter.com/percolatio"> <Icon type="twitter"/></a>
+
+        </Footer>
+        
       </Layout>
     );
   }
