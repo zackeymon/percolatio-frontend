@@ -5,20 +5,20 @@ import {
   Typography, message, Layout, Row, Col, Input, Icon,
 } from 'antd';
 import isEmail from 'validator/lib/isEmail';
-import NavBar from '../Navbar/index';
+import jsonp from 'jsonp';
 
+import NavBar from '../Navbar/index';
 import './LandingPage.css';
 import LandingPageCard from './LandingPageCard';
 
 const queryString = require('query-string');
-const request = require('request');
 const landingPageStrings = require('./texts.json');
 
 const { Search } = Input;
 const { Content, Footer } = Layout;
 const { Title } = Typography;
 
-const mailChimpUrl = 'https://gmail.us20.list-manage.com/subscribe/post?u=6ab97c6731c30a65057839edf&id=7b65cebef7';
+const mailChimpUrl = 'https://percolatio.us4.list-manage.com/subscribe/post?u=82878581fd55df99ab90459cd&id=bcfd1d6c1f';
 const getAjaxUrl = (url) => url.replace('/post?', '/post-json?');
 
 const mapStateToProps = (state) => ({
@@ -40,15 +40,30 @@ const subscribe = (data) => {
     message.error('The email address provided does not seem to be valid');
     return;
   }
-  const params = queryString.stringify(data);
+  const params = queryString.stringify({
+    EMAIL: data,
+  });
   const url = `${getAjaxUrl(mailChimpUrl)}&${params}`;
 
-  request.post(url,
-    (error, response, body) => {
-      if (!error && response.statusCode === 200) {
-        message.info('Thank you, we will stay in touch');
+  jsonp(
+    url,
+    {
+      param: 'c',
+    },
+    (err, d) => {
+      if (err) {
+        message.warn('Something went wrong. Please try again in a bit.');
+      } else if (d.result !== 'success') {
+        if (d.msg.includes('already subscribed')) {
+          message.warn('It seems like you are already part of our newsletter');
+        } else {
+          message.warn('Something went wrong. Please try again in a bit.');
+        }
+      } else {
+        message.info('Thank you!. We will stay in touch');
       }
-    });
+    },
+  );
 };
 
 class LandingPage extends React.Component {

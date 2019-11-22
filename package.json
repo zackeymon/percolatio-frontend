@@ -17,6 +17,7 @@
     "formik": "^2.0.3",
     "formik-antd": "^1.6.0",
     "history": "^4.6.3",
+    "jsonp": "^0.2.1",
     "marked": "^0.7.0",
     "prop-types": "^15.5.10",
     "query-string": "^6.9.0",
