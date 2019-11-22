@@ -7,5 +7,11 @@
     "Image": {
         "Name": "percolatio/percolatio-frontend",
         "Update": "true"
-    }
+    },
+    "Ports": [
+        {
+            "ContainerPort": 3000,
+            "HostPort": 8000
+        }
+    ]
 }
