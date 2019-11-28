@@ -1,0 +1,31 @@
+{
+    "en": {
+        "Title": "Percolatio",
+        "Subtitle": "The platform for seed stage philanthropy",
+        "Subscribe": {
+            "Title": "Subscribe to our newsletter to stay updated and get early access to our private beta.",
+            "Placeholder": "Your email",
+            "ButtonText": "Subscribe"
+        },
+        "HowItWorks": {
+            "Title": "How does it work?",
+            "Subtitle": "Create a Foundation to fund the best projects on the spaces you care about. Get support from your Community.",
+            "Step1": {
+                "Title": "Setup a Foundation",
+                "Text": "Foundations are digital organizations that you can create on the fly. Raise money from sponsors who view the world the same way you do and change the world together."
+            },
+            "Step2": {
+                "Title": "Create a Grant",
+                "Text": "Grants are issued by foundations as equity-free funding to the best ideas and projects . You can be perspective on the grant subject or let the applicants amaze you with their ideas. It is really up to you."
+            },
+            "Step3": {
+                "Title": "Build Community",
+                "Text": "Giving to others is good, but giving together is better. Sharing a grant on social media will help you attract better candidates and more sponsors."
+            },
+            "Step4": {
+                "Title": "Ideas",
+                "Text": "Enjoy reading all the amazing ideas that you just received. Award the grant to the ones you like the most and watch the progress."
+            }
+        }
+    }
+}
