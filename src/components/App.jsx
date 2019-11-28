@@ -19,6 +19,8 @@ import Dashboard from './Dashboard';
 import Settings from './Settings';
 import ApplicationFormPage from './ApplicationFormPage';
 import Grant from './Grant';
+import GrantFormPage from './GrantFormPage';
+import FoundationFormPage from './FoundationFormPage';
 import Foundation from './Foundation';
 
 const mapStateToProps = (state) => ({
@@ -73,15 +75,18 @@ class App extends React.Component {
             <Route path="/dashboard" component={Dashboard} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
-            <Route path="/editor/:slug" component={Editor} />
-            <Route path="/editor" component={Editor} />
             <Route path="/apply" component={ApplicationFormPage} />
             <Route path="/grant/:slug" component={Grant} />
+            <Route path="/new-grant" component={GrantFormPage} />
+            <Route path="/new-foundation" component={FoundationFormPage} />
             <Route path="/foundation/:name" component={Foundation} />
             <Route path="/article/:id" component={Article} />
             <Route path="/settings" component={Settings} />
             <Route path="/@:username/favorites" component={ProfileFavorites} />
             <Route path="/@:username" component={Profile} />
+
+            <Route path="/editor/:slug" component={Editor} />
+            <Route path="/editor" component={Editor} />
           </Switch>
         </div>
       );
