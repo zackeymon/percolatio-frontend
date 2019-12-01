@@ -5,7 +5,7 @@ import {
   GRANTS_PAGE_LOADED,
   GRANTS_PAGE_UNLOADED,
 } from 'constants/actionTypes';
-import { Button } from 'antd';
+import { Button, Input } from 'antd';
 import FoundationsView from './GrantsView';
 
 const { Promise } = global;
@@ -57,7 +57,12 @@ class Grants extends React.Component {
                 </h2>
                 <span>
                   <p style={{ color: 'white', 'font-size': '16px' }}>Apply to grants and prizes created by awesome founders .</p>
-                  <Button href="/new-foundation"> Create a Foundation </Button>
+                  <Input.Search
+                    placeholder="Search grants by tag"
+                    enterButton="Search"
+                    size="medium"
+                    onSearch={(value) => console.log(value)}
+                  />
                 </span>
               </div>
             </div>
