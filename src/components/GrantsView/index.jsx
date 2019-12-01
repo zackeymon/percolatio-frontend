@@ -56,7 +56,7 @@ class Grants extends React.Component {
                   Grants and Fellowships
                 </h2>
                 <span>
-                  <p style={{ color: 'white', 'font-size': '16px' }}>Apply to grants and prizes created by awesome founders .</p>
+                  <p style={{ color: 'white', 'font-size': '16px' }}>Apply to grants and prizes created by awesome founders.</p>
                   <Input.Search
                     placeholder="Search grants by tag"
                     enterButton="Search"
