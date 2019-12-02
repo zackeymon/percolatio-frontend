@@ -19,6 +19,7 @@
     "history": "^4.6.3",
     "jsonp": "^0.2.1",
     "marked": "^0.7.0",
+    "nuka-carousel": "^4.5.13",
     "prop-types": "^15.5.10",
     "query-string": "^6.9.0",
     "react": "^16.3.0",

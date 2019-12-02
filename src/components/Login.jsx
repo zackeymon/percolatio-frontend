@@ -7,9 +7,11 @@ import {
   LOGIN,
   LOGIN_PAGE_UNLOADED,
 } from 'constants/actionTypes';
-import ListErrors from './ListErrors';
+import {
+  Form, Icon, Input, Button, Checkbox, Typography, Divider,
+} from 'antd';
 
-
+const { Title } = Typography;
 const mapStateToProps = (state) => ({ ...state.auth });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -22,78 +24,94 @@ const mapDispatchToProps = (dispatch) => ({
   onUnload: () => dispatch({ type: LOGIN_PAGE_UNLOADED }),
 });
 
-class Login extends React.Component {
+class LoginForm extends React.Component {
   constructor() {
     super();
-    this.changeEmail = (ev) => this.props.onChangeEmail(ev.target.value);
-    this.changePassword = (ev) => this.props.onChangePassword(ev.target.value);
-    this.submitForm = (email, password) => (ev) => {
-      ev.preventDefault();
+    this.submitForm = (email, password) => {
       this.props.onSubmit(email, password);
     };
   }
 
-  componentWillUnmount() {
-    this.props.onUnload();
-  }
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        this.submitForm(values.email, values.password);
+      }
+    });
+  };
 
   render() {
-    const { email, password } = this.props;
+    const { getFieldDecorator } = this.props.form;
     return (
-      <div className="auth-page">
-        <div className="container page">
-          <div className="row">
-
-            <div className="col-md-6 offset-md-3 col-xs-12">
-              <h1 className="text-xs-center">Sign In</h1>
-              <p className="text-xs-center">
-                <Link to="/register">
-                  Need an account?
-                </Link>
-              </p>
-
-              <ListErrors errors={this.props.errors} />
-
-              <form onSubmit={this.submitForm(email, password)}>
-                <fieldset>
-
-                  <fieldset className="form-group">
-                    <input
-                      className="form-control form-control-lg"
-                      type="email"
-                      placeholder="Email"
-                      value={email}
-                      onChange={this.changeEmail}
-                    />
-                  </fieldset>
-
-                  <fieldset className="form-group">
-                    <input
-                      className="form-control form-control-lg"
-                      type="password"
-                      placeholder="Password"
-                      value={password}
-                      onChange={this.changePassword}
-                    />
-                  </fieldset>
-
-                  <button
-                    className="btn btn-lg btn-primary pull-xs-right"
-                    type="submit"
-                    disabled={this.props.inProgress}
-                  >
-                    Sign in
-                  </button>
-
-                </fieldset>
-              </form>
-            </div>
-
-          </div>
-        </div>
+      <div type="flex" justify="center" align="middle" style={{ marginTop: '30px' }}>
+        <img
+          alt="Percolatio logo"
+          src="https://s3.eu-west-2.amazonaws.com/percolation.images/frontend/logo.png"
+          height="auto"
+          style={{ maxWidth: '200px' }}
+        />
+        <Title level={4} style={{ color: '#035f66' }} type="secondary">You don't have to be a millionaire to change the world</Title>
+        <Form onSubmit={this.handleSubmit} className="login-form" style={{ maxWidth: '500px' }}>
+          <Form.Item style={{ margin: 'auto', width: '100%' }}>
+            {getFieldDecorator('email', {
+              rules: [{
+                type: 'email',
+                message: 'The input is not valid email!',
+              }, { required: true, message: 'Please input your email!' }],
+            })(
+              <Input
+                prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                placeholder="Email"
+              />,
+            )}
+          </Form.Item>
+          <Form.Item style={{ margin: 'auto', width: '100%' }}>
+            {getFieldDecorator('password', {
+              rules: [
+                {
+                  required: true,
+                  message: 'Please input your Password',
+                }],
+            })(
+              <Input
+                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                type="password"
+                placeholder="Password"
+              />,
+            )}
+          </Form.Item>
+          <Form.Item style={{ margin: 'auto', width: '100%' }}>
+            {/* {getFieldDecorator('remember', {
+              valuePropName: 'checked',
+              initialValue: true,
+            })(<Checkbox style={{ float: 'left', marginLeft: '7px' }}>Remember me</Checkbox>)} */}
+            {/* <a style={{ float: 'right', marginRight: '7px' }} className="login-form-forgot">
+              Forgot password
+            </a> */}
+            <Button
+              style={{ width: '100%' }}
+              type="primary"
+              htmlType="submit"
+              disabled={this.props.inProgress}
+              className="login-form-button"
+            >
+              Log in
+            </Button>
+            <Divider>or</Divider>
+            <Link to="/register">
+              <Button
+                style={{ width: '50%' }}
+                type="link"
+              >
+                New to Percolatio? Sign up here!
+              </Button>
+            </Link>
+          </Form.Item>
+        </Form>
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

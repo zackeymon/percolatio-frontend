@@ -3,7 +3,7 @@ import _superagent from 'superagent';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-// const API_ROOT = "https://conduit.productionready.io/api";
+// const API_ROOT = 'http://percdev.eu-west-1.elasticbeanstalk.com/api';
 const API_ROOT = 'http://localhost:8000/api';
 
 const encode = encodeURIComponent;
@@ -43,7 +43,7 @@ const Auth = {
 };
 
 const Tags = {
-  getAll: () => requests.get('/tags'),
+  getAll: () => requests.get('/tags/'),
 };
 
 const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
