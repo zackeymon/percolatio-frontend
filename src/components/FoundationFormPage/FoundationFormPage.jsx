@@ -3,22 +3,39 @@ import React from 'react';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import agent from 'agent';
+import { connect } from 'react-redux';
+import { FOUNDATION_CREATION_REQUEST, FOUNDATION_CREATION_SUCCESS, FOUNDATION_CREATION_ERROR } from 'constants/actionTypes';
+import { message } from 'antd';
 
 import {
-  Select, Input, SubmitButton, ResetButton, Form,
+  Input, SubmitButton, ResetButton, Form,
 } from 'formik-antd';
 
-const { Option } = Select;
+import TagSelect from './TagSelect';
 
-const tags = ['science', 'oss', 'biotech', 'tech', 'health',
-  'ai', 'green', 'women', 'development', 'journalism', 'research'];
+const mapStateToProps = (state) => ({
+  isSubmitting: state.foundation.isSubmittingForm,
+})
 
-const tagsChildren = [];
-
-for (let i = 0; i < tags.length; i += 1) {
-  tagsChildren.push(<Option key={tags[i]}>{tags[i]}</Option>);
-}
-
+const submitFormActionCreator = (foundationParams) => (dispatch) => {
+  dispatch({
+    type: FOUNDATION_CREATION_REQUEST,
+  });
+  return agent.Foundations.create(foundationParams).then(
+    ({ foundation }) => {
+      message.success(`Successfully created foundation: ${foundation.name}.`);
+      dispatch({
+        type: FOUNDATION_CREATION_SUCCESS,
+      });
+    },
+    (error) => {
+      message.error(`Could not create foundation. ${error}`);
+      dispatch({
+        type: FOUNDATION_CREATION_ERROR,
+      });
+    },
+  );
+};
 
 // DisplayFormikState is just here for debugging
 const DisplayFormikState = (props) => (
@@ -51,15 +68,8 @@ const formikEnhancer = withFormik({
     tags: [],
     website: '',
   }),
-  handleSubmit: (values, { setSubmitting }) => {
-    agent.Foundations.create(values).then(
-      (res) => {
-        console.log(res);
-      },
-      (error) => {
-        console.log(error);
-      },
-    );
+  handleSubmit: (values, { props, setSubmitting }) => {
+    props.dispatch(submitFormActionCreator(values));
     setSubmitting(false);
   },
   displayName: 'Foundation Form',
@@ -115,14 +125,7 @@ const MyForm = (props) => {
 
           <Form.Item name="tags">
             Which tags describe your foundation best?
-            <Select
-              name="tags"
-              mode="tags"
-              style={{ width: '100%' }}
-              placeholder="E.g. tech, oss or development"
-            >
-              {tagsChildren}
-            </Select>
+            <TagSelect />
           </Form.Item>
 
           <Form.Item name="website">
@@ -137,10 +140,10 @@ const MyForm = (props) => {
             )}
           </Form.Item>
 
-          <SubmitButton type="submit" disabled={isSubmitting}>
-        Create Foundation
+          <SubmitButton style={{ marginRight: '10px' }} type="primary" disabled={isSubmitting}>
+            Create Foundation
           </SubmitButton>
-
+          
           <ResetButton
             type="button"
             className="outline"
@@ -158,6 +161,6 @@ const MyForm = (props) => {
   );
 };
 
-const FoundationFormPage = formikEnhancer(MyForm);
+const FoundationFormPage = connect(mapStateToProps)(formikEnhancer(MyForm));
 
 export default FoundationFormPage;

@@ -43,7 +43,7 @@ class Dashboard extends React.Component {
 
   render() {
     const operations = (
-      <Button href="/foundation">
+      <Button href="/new-foundation">
         <Icon type="plus" />
         {' '}
         New Foundation

@@ -2,7 +2,7 @@ import agent from 'agent';
 import React from 'react';
 import { connect } from 'react-redux';
 import { APP_LOAD, REDIRECT } from 'constants/actionTypes';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { store } from 'store';
 import { push } from 'react-router-redux';
 import LandingPage from 'components/LandingPage';
@@ -74,7 +74,17 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={LandingPage} />
             <Route path="/homehome" component={Home} />
-            <Route path="/dashboard" component={Dashboard} />
+            <Route
+              path="/dashboard"
+              render={() => (
+                this.props.currentUser ? <Dashboard /> : (
+                  <Redirect to={{
+                    pathname: '/login',
+                    state: 'Please sign in',
+                  }}
+                  />
+                ))}
+            />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/apply" component={ApplicationFormPage} />
