@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import agent from 'agent';
@@ -14,7 +14,6 @@ import {
 } from 'formik-antd';
 
 const { Option } = Select;
-const RadioGroup = Radio.Group;
 
 const tags = ['science', 'oss', 'biotech', 'tech', 'health',
   'ai', 'green', 'women', 'development', 'journalism', 'research'];
@@ -27,6 +26,7 @@ for (let i = 0; i < tags.length; i += 1) {
 
 const mapStateToProps = (state) => ({
   isSubmitting: state.grant.isSubmittingForm,
+  currentUser: state.common.currentUser,
 });
 
 
@@ -90,20 +90,35 @@ const MyForm = (props) => {
     handleReset,
     isSubmitting,
   } = props;
+
+
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await agent.Foundations.byFounder(props.currentUser.username);
+      setData(response);
+    };
+    fetchData();
+  }, []);
+
   return (
     <form onSubmit={handleSubmit}>
       <div style={{ display: 'flex' }}>
         <div style={{ width: 500, margin: 'auto' }}>
-          <h2>Create a Grant</h2>
           <fieldset>
+            <legend>Create a Grant</legend>
             <Form.Item name="foundationItem">
-              Which Foundation is issuing this Grant?
+              Which of your Foundations is issuing the Grant?
               {' '}
               <Radio.Group name="FoundationName" defaultValue="a" size="large">
-                <Radio.Button value="a">Hangzhou</Radio.Button>
-                <Radio.Button value="b">Shanghai</Radio.Button>
-                <Radio.Button value="c">Beijing</Radio.Button>
-                <Radio.Button value="d">Chengdu</Radio.Button>
+                {data.foundations && data.foundations.map(
+                  (foundation) => (
+                    <Radio key={foundation.name} value={foundation.name}>
+                      {foundation.name}
+                      {' '}
+                    </Radio>
+                  ),
+                )}
               </Radio.Group>
 
             </Form.Item>
