@@ -3,6 +3,8 @@ import React from 'react';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import agent from 'agent';
+import { connect } from 'react-redux';
+import { NEW_FOUNDATION } from 'constants/actionTypes';
 
 import {
   Select, Input, SubmitButton, ResetButton, Form,
@@ -19,6 +21,9 @@ for (let i = 0; i < tags.length; i += 1) {
   tagsChildren.push(<Option key={tags[i]}>{tags[i]}</Option>);
 }
 
+const mapStateToProps = (state) => ({
+  isSubmitting: state.foundation.isSubmittingForm,
+});
 
 // DisplayFormikState is just here for debugging
 const DisplayFormikState = (props) => (
@@ -51,15 +56,12 @@ const formikEnhancer = withFormik({
     tags: [],
     website: '',
   }),
-  handleSubmit: (values, { setSubmitting }) => {
-    agent.Foundations.create(values).then(
-      (res) => {
-        console.log(res);
-      },
-      (error) => {
-        console.log(error);
-      },
-    );
+  handleSubmit: (values, { props, setSubmitting }) => {
+    const foundationParams = values;
+    props.dispatch({
+      type: NEW_FOUNDATION,
+      payload: agent.Foundations.create(foundationParams),
+    });
     setSubmitting(false);
   },
   displayName: 'Foundation Form',
@@ -137,7 +139,7 @@ const MyForm = (props) => {
             )}
           </Form.Item>
 
-          <SubmitButton type="submit" disabled={isSubmitting}>
+          <SubmitButton type="primary" disabled={isSubmitting}>
         Create Foundation
           </SubmitButton>
 
@@ -158,6 +160,6 @@ const MyForm = (props) => {
   );
 };
 
-const FoundationFormPage = formikEnhancer(MyForm);
+const FoundationFormPage = connect(mapStateToProps)(formikEnhancer(MyForm));
 
 export default FoundationFormPage;

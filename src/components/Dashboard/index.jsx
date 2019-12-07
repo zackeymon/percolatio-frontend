@@ -7,7 +7,7 @@ import {
 } from 'constants/actionTypes';
 
 import {
-  Row, Tabs, Col, Button, Icon,
+  Row, Tabs, Col, Button, Icon, message
 } from 'antd';
 import ActionCenterCard from './ActionCenterCard';
 import GrantOverviewCard from './GrantOverviewCard';
@@ -35,6 +35,7 @@ const mapDispatchToProps = (dispatch) => ({
 class Dashboard extends React.Component {
   componentDidMount() {
     this.props.onLoad(agent.Foundations.byFounder(this.props.currentUser.username));
+    message.success('This is a success message');
   }
 
   // componentWillUnmount() {
@@ -43,7 +44,7 @@ class Dashboard extends React.Component {
 
   render() {
     const operations = (
-      <Button href="/foundation">
+      <Button href="/new-foundation">
         <Icon type="plus" />
         {' '}
         New Foundation
