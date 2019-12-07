@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import UserMenu from './UserMenu';
+import UserMenu from '../UserMenu';
 
 const LoggedOutView = (props) => {
   if (!props.currentUser) {
@@ -37,8 +37,20 @@ const LoggedInView = (props) => {
       <ul className="nav navbar-nav pull-xs-right">
 
         <li id="home" className="nav-item">
-          <Link to="/" className="nav-link">
+          <Link to="/homehome" className="nav-link">
             Home
+          </Link>
+        </li>
+
+        <li id="foundations" className="nav-item">
+          <Link to="/foundation" className="nav-link">
+            Foundations
+          </Link>
+        </li>
+
+        <li id="grants" className="nav-item">
+          <Link to="/grant" className="nav-link">
+            Apply
           </Link>
         </li>
 
