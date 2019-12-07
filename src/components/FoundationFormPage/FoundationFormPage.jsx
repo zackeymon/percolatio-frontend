@@ -84,7 +84,7 @@ const MyForm = (props) => {
       <div style={{ display: 'flex' }}>
         <div style={{ width: 500, margin: 'auto' }}>
 
-          <Form.Item name="name">
+          <Form.Item name="foundationItem">
             Name
             <Input
               name="name"
@@ -101,7 +101,7 @@ const MyForm = (props) => {
 
           </Form.Item>
 
-          <Form.Item name="description">
+          <Form.Item name="descriptionItem">
             Describe your foundation in a few words
             <Input.TextArea
               name="description"
@@ -115,7 +115,7 @@ const MyForm = (props) => {
             )}
           </Form.Item>
 
-          <Form.Item name="tags">
+          <Form.Item name="tagsItem">
             Which tags describe your foundation best?
             <Select
               name="tags"
@@ -127,15 +127,15 @@ const MyForm = (props) => {
             </Select>
           </Form.Item>
 
-          <Form.Item name="website">
+          <Form.Item name="websiteItem">
             (Optional) If you already have a website for the foundation, please provide the URL here
             <Input
               name="website"
               placeholder="http://..."
             />
-            {errors.description
-        && touched.description && (
-          <div style={{ color: 'red', marginTop: '.5rem' }}>{errors.description}</div>
+            {errors.website
+        && touched.website && (
+          <div style={{ color: 'red', marginTop: '.5rem' }}>{errors.website}</div>
             )}
           </Form.Item>
 
