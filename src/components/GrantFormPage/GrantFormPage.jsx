@@ -2,16 +2,16 @@
 import React from 'react';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
+import agent from 'agent';
 
 import {
-  Button, Form, Row, Col, Upload, Icon, message,
+  Form, Row, Col, Upload, Icon, message,
 } from 'antd';
 import {
-  Select, Input, Radio, InputNumber, Slider, DatePicker, Switch,
+  Select, Input, Radio, InputNumber, SubmitButton, ResetButton, Switch,
 } from 'formik-antd';
 
 const { Option } = Select;
-const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 const { Dragger } = Upload;
 
@@ -64,28 +64,28 @@ const DisplayFormikState = (props) => (
 
 const formikEnhancer = withFormik({
   validationSchema: Yup.object().shape({
-    name: Yup.string().required('A name for your foundation is required'),
+    title: Yup.string().required('A name for your foundation is required'),
     description: Yup.string().required('You need to write a few words about your new foundation'),
     website: Yup.string().url('Please provide a valid URL'),
   }),
-  mapPropsToValues: (props) => ({
-    name: '',
+  mapPropsToValues: () => ({
+    title: '',
     description: '',
     tags: [],
     existing: '',
     website: '',
     prize: '1000',
-    grantees: '1',
   }),
   handleSubmit: (values, { setSubmitting }) => {
-    const payload = {
-      ...values,
-      // topics: values.topics.map((t) => t.value),
-    };
-    setTimeout(() => {
-      alert(JSON.stringify(payload, null, 2));
-      setSubmitting(false);
-    }, 1000);
+    agent.Grants.create(values).then(
+      (res) => {
+        console.log(res);
+      },
+      (error) => {
+        console.log(error);
+      },
+    );
+    setSubmitting(false);
   },
   displayName: 'Foundation Form',
 });
@@ -100,8 +100,6 @@ const MyForm = (props) => {
     handleBlur,
     handleSubmit,
     handleReset,
-    setFieldValue,
-    setFieldTouched,
     isSubmitting,
   } = props;
   return (
@@ -110,11 +108,11 @@ const MyForm = (props) => {
         <div style={{ width: 500, margin: 'auto' }}>
           <fieldset>
             <legend>General</legend>
-            <FormItem>
+            <Form.Item name="title">
             Name
               <Input
-                name="name"
-                placeholder="Enter the name of the grant"
+                name="title"
+                placeholder="Enter the title of your grant"
                 type="text"
                 value={values.name}
                 onChange={handleChange}
@@ -125,9 +123,9 @@ const MyForm = (props) => {
           <div style={{ color: 'red', marginTop: '.5rem' }}>{errors.name}</div>
               )}
 
-            </FormItem>
+            </Form.Item>
 
-            <FormItem>
+            <Form.Item name="description">
             Describe the grant in a few words
               <Input.TextArea
                 name="description"
@@ -139,9 +137,9 @@ const MyForm = (props) => {
         && touched.description && (
           <div style={{ color: 'red', marginTop: '.5rem' }}>{errors.description}</div>
               )}
-            </FormItem>
+            </Form.Item>
 
-            <FormItem>
+            <Form.Item name="tags">
             Which tags describe the grant best?
               <Select
                 name="tags"
@@ -151,17 +149,16 @@ const MyForm = (props) => {
               >
                 {tagsChildren}
               </Select>
-            </FormItem>
+            </Form.Item>
 
           </fieldset>
 
           <fieldset>
             <legend>Grant Financials</legend>
 
-            <FormItem>
+            <Form.Item name="accept-donations">
               <div>
-            Is your grant pre-funded (by you or past sponsors) or
-            are you planning to raise some funds with your foundation?
+              Are you accepting donations and sponsors for this grant?
               </div>
               <RadioGroup
                 name="fundraising"
@@ -169,43 +166,18 @@ const MyForm = (props) => {
                 <Radio value>Yes</Radio>
                 <Radio value={false}>No</Radio>
               </RadioGroup>
-            </FormItem>
+            </Form.Item>
 
-            <FormItem>
-            How many applicants are you planning to award this grant?
-              <Row>
-                <Col span={12}>
-                  <Slider
-                    name="grantees"
-                    min={1}
-                    max={100}
-
-                    onChange={handleChange}
-                  />
-                </Col>
-                <Col span={4}>
-                  <InputNumber
-                    name="grantees"
-                    min={1}
-                    max={100}
-                    style={{ marginLeft: 16 }}
-
-                    onChange={handleChange}
-                  />
-                </Col>
-              </Row>
-            </FormItem>
-
-            <FormItem>
-              How much $ each grantee will receive?
+            <Form.Item name="min-amount">
+            What is the minimum $ award a grantee will receive?
               <InputNumber
                 name="prize"
                 min={0}
                 formatter={(value) => `$ ${value}`}
               />
-            </FormItem>
+            </Form.Item>
 
-            <FormItem>
+            <Form.Item name="other-awards">
           Is there any other non-financial award associated with this grant?
               <RadioGroup name="nonFinancial">
 
@@ -231,65 +203,41 @@ const MyForm = (props) => {
                     ) : null}
                 </div>
               </RadioGroup>
-            </FormItem>
-
-          </fieldset>
-
-          <fieldset>
-            <legend>Key Dates</legend>
-            <FormItem>
-              When do you want to start receiving applicants?
-              <DatePicker name="start-applications" />
-            </FormItem>
-
-            <FormItem>
-              When do you want to stop receiving applicants?
-              <DatePicker name="stop-applications" />
-            </FormItem>
+            </Form.Item>
 
           </fieldset>
 
           <fieldset>
             <legend>Other</legend>
-            <FormItem>
-              <div>
-              Is there an external website associated with this grant?
-              </div>
-              <RadioGroup name="existing">
+            <Form.Item name="website">
+             (Optional) If you already have a website for the foundation, please provide the URL here
+              <Input
+                name="website"
+                placeholder="http://..."
+                style={{ width: 250, marginLeft: 10 }}
+              />
 
-                <Radio value>
-                Yes
-                  {props.values.existing
-                    ? (
-                      <Input
-                        name="website"
-                        placeholder="Type here the grant's website"
-                        style={{ width: 250, marginLeft: 10 }}
-                      />
-                    ) : null}
-                </Radio>
+              {errors.description && errors.touched
+              && (<div style={{ color: 'red', marginTop: '.5rem' }}>{errors.description}</div>)}
 
-                <Radio value={false}>
-                  No
-                </Radio>
-              </RadioGroup>
-            </FormItem>
 
-            <FormItem>
+            </Form.Item>
+
+            <Form.Item name="other-details">
             Anything else you would like to add about the details of this grant?
               <Input.TextArea
                 name="lastWords"
                 placeholder="Here you can add anything that you think it's important but falls outside of the Grant creation form.
-                We will try to make the form more customizable, so this is also feedback for us :)"
+                We want to make the form more customizable, so this is also feedback for us :)"
                 rows={6}
               />
               {errors.description
         && touched.description && (
           <div style={{ color: 'red', marginTop: '.5rem' }}>{errors.description}</div>
               )}
-            </FormItem>
+            </Form.Item>
 
-            <FormItem>
+            <Form.Item>
           Is there any support material (e.g. a video or a document) for this grant?
               <Dragger {...uploadProps}>
                 <p className="ant-upload-drag-icon">
@@ -297,29 +245,30 @@ const MyForm = (props) => {
                 </p>
                 <p className="ant-upload-text">Click or drag file to this area to upload</p>
               </Dragger>
-            </FormItem>
+            </Form.Item>
           </fieldset>
 
           <fieldset>
             <legend>And one last thing</legend>
-            <FormItem>
+            <Form.Item>
             Have you read the Terms and Conditions of Percolatio:
+              {' '}
               <Switch name="consent" />
-            </FormItem>
+            </Form.Item>
           </fieldset>
 
-          <Button type="primary" disabled={isSubmitting}>
+          <SubmitButton type="submit" disabled={isSubmitting}>
         Create Grant
-          </Button>
+          </SubmitButton>
 
-          <Button
+          <ResetButton
             type="button"
             className="outline"
             onClick={handleReset}
             disabled={!dirty || isSubmitting}
           >
         Reset
-          </Button>
+          </ResetButton>
           <DisplayFormikState {...props} />
 
         </div>
