@@ -7,19 +7,10 @@ import { connect } from 'react-redux';
 import { NEW_FOUNDATION } from 'constants/actionTypes';
 
 import {
-  Select, Input, SubmitButton, ResetButton, Form,
+  Input, SubmitButton, ResetButton, Form,
 } from 'formik-antd';
 
-const { Option } = Select;
-
-const tags = ['science', 'oss', 'biotech', 'tech', 'health',
-  'ai', 'green', 'women', 'development', 'journalism', 'research'];
-
-const tagsChildren = [];
-
-for (let i = 0; i < tags.length; i += 1) {
-  tagsChildren.push(<Option key={tags[i]}>{tags[i]}</Option>);
-}
+import TagSelect from './TagSelect';
 
 const mapStateToProps = (state) => ({
   isSubmitting: state.foundation.isSubmittingForm,
@@ -117,14 +108,7 @@ const MyForm = (props) => {
 
           <Form.Item name="tags">
             Which tags describe your foundation best?
-            <Select
-              name="tags"
-              mode="tags"
-              style={{ width: '100%' }}
-              placeholder="E.g. tech, oss or development"
-            >
-              {tagsChildren}
-            </Select>
+            <TagSelect />
           </Form.Item>
 
           <Form.Item name="website">
