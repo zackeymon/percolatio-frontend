@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import agent from '../agent';
+import agent from 'agent';
 import {
   PROFILE_PAGE_LOADED,
   PROFILE_PAGE_UNLOADED,
-} from '../constants/actionTypes';
+} from 'constants/actionTypes';
 import { Profile, mapStateToProps } from './Profile';
 
 const mapDispatchToProps = (dispatch) => ({

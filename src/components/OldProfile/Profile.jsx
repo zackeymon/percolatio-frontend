@@ -8,10 +8,7 @@ import {
   PROFILE_PAGE_LOADED,
   PROFILE_PAGE_UNLOADED,
 } from 'constants/actionTypes';
-import { Tabs, Avatar, Button } from 'antd';
-
-
-const { TabPane } = Tabs;
+import ArticleList from '../ArticleList';
 
 
 const EditProfileSettings = (props) => {
@@ -19,9 +16,10 @@ const EditProfileSettings = (props) => {
     return (
       <Link
         to="/settings"
+        className="btn btn-sm btn-outline-secondary action-btn"
       >
-        <Button size="large" type="primary" style={{ float: 'right' }}>Edit Profile Settings</Button>
-
+        <i className="ion-gear-a" />
+        Edit Profile Settings
       </Link>
     );
   }
@@ -48,7 +46,6 @@ const FollowUserButton = (props) => {
       props.follow(props.user.username);
     }
   };
-
 
   return (
     <button
@@ -97,21 +94,36 @@ class Profile extends React.Component {
   }
 
   renderTabs() {
-    const callback = (key) => {
-      console.log(key);
-    };
     return (
-      <Tabs onChange={callback} type="card">
-        <TabPane tab="My Foundations" key="1">
-          {this.props.profile.username}
-        </TabPane>
-        <TabPane tab="My Donations" key="2">
-        You have not sponsored any foundation yet
-        </TabPane>
-        <TabPane tab="My Applications" key="3">
-        You have not applied to any grant yet
-        </TabPane>
-      </Tabs>
+      <ul className="nav nav-pills outline-active">
+        <li className="nav-item">
+          <Link
+            className="nav-link active"
+            to={`/@${this.props.profile.username}`}
+          >
+            My Foundations
+          </Link>
+        </li>
+
+        <li className="nav-item">
+          <Link
+            className="nav-link"
+            to={`/@${this.props.profile.username}/favorites`}
+          >
+            Donations
+          </Link>
+        </li>
+
+
+        <li className="nav-item">
+          <Link
+            className="nav-link"
+            to={`/@${this.props.profile.username}/favorites`}
+          >
+            Applications
+          </Link>
+        </li>
+      </ul>
     );
   }
 
@@ -132,7 +144,7 @@ class Profile extends React.Component {
             <div className="row">
               <div className="col-xs-12 col-md-10 offset-md-1">
 
-                <Avatar size={84} style={{ margin: '5px', color: 'blue', backgroundColor: 'white' }}>U</Avatar>
+                <img src={profile.image} className="user-img" alt={profile.username} />
                 <h4>{profile.username}</h4>
                 <p>{profile.bio}</p>
 
@@ -158,7 +170,12 @@ class Profile extends React.Component {
                 {this.renderTabs()}
               </div>
 
-
+              <ArticleList
+                pager={this.props.pager}
+                articles={this.props.articles}
+                articlesCount={this.props.articlesCount}
+                state={this.props.currentPage}
+              />
             </div>
 
           </div>
