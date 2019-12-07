@@ -4,7 +4,8 @@ import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import agent from 'agent';
 import { connect } from 'react-redux';
-import { NEW_FOUNDATION } from 'constants/actionTypes';
+import { FOUNDATION_CREATION_REQUEST, FOUNDATION_CREATION_SUCCESS, FOUNDATION_CREATION_ERROR } from 'constants/actionTypes';
+import { message } from 'antd';
 
 import {
   Input, SubmitButton, ResetButton, Form,
@@ -15,6 +16,26 @@ import TagSelect from './TagSelect';
 const mapStateToProps = (state) => ({
   isSubmitting: state.foundation.isSubmittingForm,
 })
+
+const submitFormActionCreator = (foundationParams) => (dispatch) => {
+  dispatch({
+    type: FOUNDATION_CREATION_REQUEST,
+  });
+  return agent.Foundations.create(foundationParams).then(
+    ({ foundation }) => {
+      message.success(`Successfully created foundation: ${foundation.name}.`);
+      dispatch({
+        type: FOUNDATION_CREATION_SUCCESS,
+      });
+    },
+    (error) => {
+      message.error(`Could not create foundation. ${error}`);
+      dispatch({
+        type: FOUNDATION_CREATION_ERROR,
+      });
+    },
+  );
+};
 
 // DisplayFormikState is just here for debugging
 const DisplayFormikState = (props) => (
@@ -48,11 +69,7 @@ const formikEnhancer = withFormik({
     website: '',
   }),
   handleSubmit: (values, { props, setSubmitting }) => {
-    const foundationParams = values;
-    props.dispatch({
-      type: NEW_FOUNDATION,
-      payload: agent.Foundations.create(foundationParams),
-    });
+    props.dispatch(submitFormActionCreator(values));
     setSubmitting(false);
   },
   displayName: 'Foundation Form',
@@ -123,10 +140,10 @@ const MyForm = (props) => {
             )}
           </Form.Item>
 
-          <SubmitButton type="primary" disabled={isSubmitting}>
-        Create Foundation
+          <SubmitButton style={{ marginRight: '10px' }} type="primary" disabled={isSubmitting}>
+            Create Foundation
           </SubmitButton>
-
+          
           <ResetButton
             type="button"
             className="outline"
