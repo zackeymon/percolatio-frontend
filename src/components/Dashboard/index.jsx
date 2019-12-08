@@ -88,6 +88,8 @@ class Dashboard extends React.Component {
 
     const { foundations, grantsForFoundation } = this.props;
 
+    const allGrants = grantsForFoundation ? Object.values(grantsForFoundation)[0] : null;
+
     // Be aware when working with antd tabs https://github.com/ant-design/ant-design/issues/17492
     return (
       <div className="container page">
@@ -104,7 +106,7 @@ class Dashboard extends React.Component {
                   <ActionCenterCard />
                 </Col>
                 <Col span={12}>
-                  <GrantOverviewCard />
+                  <GrantOverviewCard grants={allGrants} />
                 </Col>
               </Row>
               <Row gutter={[16, 16]}>
