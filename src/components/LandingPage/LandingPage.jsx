@@ -2,21 +2,20 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { APP_LOAD, REDIRECT } from 'constants/actionTypes';
 import {
-  Typography, message, Layout, Row, Col, Input, Icon,
+  Typography, message, Layout, Row, Input, Icon,
 } from 'antd';
 import isEmail from 'validator/lib/isEmail';
 import jsonp from 'jsonp';
 
 import NavBar from '../Navbar/index';
 import './LandingPage.css';
-import LandingPageCard from './LandingPageCard';
 
 const queryString = require('query-string');
 const landingPageStrings = require('./texts.json');
 
 const { Search } = Input;
 const { Content, Footer } = Layout;
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 const mailChimpUrl = 'https://percolatio.us4.list-manage.com/subscribe/post?u=82878581fd55df99ab90459cd&id=bcfd1d6c1f';
 const getAjaxUrl = (url) => url.replace('/post?', '/post-json?');
@@ -72,81 +71,60 @@ class LandingPage extends React.Component {
   componentWillReceiveProps() { }
 
   render() {
+    const isMobile = (window.innerWidth < 720);
+    const imageScale = (isMobile) ? '90%' : '30%';
+    const buttonWidth = (isMobile) ? `${Math.floor(0.75 * window.innerWidth)}px` : '400px';
     return (
       <Layout class="open-sans-font" style={{ backgroundColor: 'white' }}>
         <NavBar />
         <Content style={{ paddingTop: 30, paddingLeft: 30, paddingRight: 30 }}>
-
-          <Row type="flex" style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 50 }}>
-            <Col offset={1}>
-              <Title level={1}>{landingPageStrings.en.Title}</Title>
-              <Title level={3}>{landingPageStrings.en.Subtitle}</Title>
-              <p>
-                {landingPageStrings.en.Subscribe.Title}
-              </p>
-              <Search
-                placeholder={landingPageStrings.en.Subscribe.Placeholder}
-                enterButton={landingPageStrings.en.Subscribe.ButtonText}
-                onSearch={subscribe}
-                style={{ width: 300 }}
-              />
-            </Col>
-            <Col offset={1} span={7}>
+          <Row type="flex" justify="space-around" align="middle">
+            <div type="flex" justify="space-around" align="middle">
               <img
                 alt="Percolatio logo"
-                src="https://s3.eu-west-2.amazonaws.com/percolation.images/frontend/logo.png"
+                src="https://s3.eu-west-2.amazonaws.com/percolation.images/frontend/logoName.png"
                 height="auto"
-                width="70%"
+                width={imageScale}
+                style={{
+                  zIndex: '-1',
+                }}
               />
-            </Col>
-          </Row>
-          <div style={{ "padding": '50px' }}>
-            <Row type="flex" justify="space-around" align="middle">
-              <Title level={2}>
-                {landingPageStrings.en.HowItWorks.Title}
+              <Title level={2}>{landingPageStrings.en.Subtitle}</Title>
+              <Title level={4}>
+                Sponsor change - Build a community -
+                Promote talent - Get funding
               </Title>
-            </Row>
-
-            <Row paddingBottom={8} type="flex" justify="space-around" align="middle">
-              {landingPageStrings.en.HowItWorks.Subtitle}
-            </Row>
-          </div>
-
-          <Row type="flex" justify="center" align="top" style={{ margin: '10px 10px' }}>
-            <LandingPageCard
-              title={landingPageStrings.en.HowItWorks.Step1.Title}
-              text={landingPageStrings.en.HowItWorks.Step1.Text}
-              color="#007687ff"
-              icon="rocket"
-            />
-            <LandingPageCard
-              title={landingPageStrings.en.HowItWorks.Step2.Title}
-              text={landingPageStrings.en.HowItWorks.Step2.Text}
-              color="#007687ff"
-              icon="audit"
-            />
-            <LandingPageCard
-              title={landingPageStrings.en.HowItWorks.Step3.Title}
-              text={landingPageStrings.en.HowItWorks.Step3.Text}
-              color="#1DA1F2"
-              icon="twitter"
-            />
-            <LandingPageCard
-              title={landingPageStrings.en.HowItWorks.Step4.Title}
-              text={landingPageStrings.en.HowItWorks.Step4.Text}
-              color="#00d894ff"
-              icon="bulb"
-            />
+              <div style={{ marginTop: (isMobile) ? '20px' : '60px' }}>
+                <Text type="secondary">
+                  {landingPageStrings.en.Subscribe.Title}
+                </Text>
+              </div>
+              <div style={{ marginTop: '15px', marginBottom: '20px' }}>
+                <Search
+                  placeholder={landingPageStrings.en.Subscribe.Placeholder}
+                  enterButton={landingPageStrings.en.Subscribe.ButtonText}
+                  onSearch={subscribe}
+                  style={{ width: buttonWidth }}
+                />
+              </div>
+            </div>
           </Row>
-
         </Content>
-        <Footer style={{ 'textAlign': 'center', position: "sticky", bottom: "0", 'backgroundColor': 'white' }}>
+        <Footer style={{
+          textAlign: 'center',
+          position: 'absolute',
+          bottom: '0',
+          backgroundColor: 'white',
+        }}
+        >
           Made with
           <Icon type="heart" theme="twoTone" twoToneColor="#eb2f96" />
           {' '}
           by Percolatio.
                    Follow us on
-          <a href="https://twitter.com/percolatio"> <Icon type="twitter" /></a>
+          <a href="https://twitter.com/percolatio">
+            <Icon type="twitter" />
+          </a>
         </Footer>
 
       </Layout>

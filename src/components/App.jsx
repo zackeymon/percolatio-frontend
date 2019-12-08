@@ -1,5 +1,6 @@
 import agent from 'agent';
 import React from 'react';
+import { Form } from 'antd';
 import { connect } from 'react-redux';
 import { APP_LOAD, REDIRECT } from 'constants/actionTypes';
 import { Route, Switch, Redirect } from 'react-router-dom';
@@ -11,10 +12,10 @@ import Article from './Article';
 import Editor from './Editor';
 import Header from './Header/Header';
 import Home from './Home';
-import Login from './Login';
+import LoginForm from './Login';
 import Profile from './Profile/Profile';
 import ProfileFavorites from './Profile/ProfileFavorites';
-import Register from './Register';
+import RegisterForm from './Register/Register';
 import Dashboard from './Dashboard';
 import Settings from './Settings';
 import ApplicationFormPage from './ApplicationFormPage';
@@ -24,6 +25,7 @@ import FoundationFormPage from './FoundationFormPage';
 import Foundation from './Foundation';
 import Foundations from './FoundationsView';
 import Grants from './GrantsView';
+
 
 const mapStateToProps = (state) => ({
   appLoaded: state.common.appLoaded,
@@ -45,6 +47,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     const token = window.localStorage.getItem('jwt');
+    this.loginForm = Form.create({ name: 'normal_login' })(LoginForm);
+    this.registerForm = Form.create({ name: 'register' })(RegisterForm);
     if (token) {
       agent.setToken(token);
     }
@@ -85,8 +89,8 @@ class App extends React.Component {
                   />
                 ))}
             />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
+            <Route path="/login" component={this.loginForm} />
+            <Route path="/register" component={this.registerForm} />
             <Route path="/apply" component={ApplicationFormPage} />
             <Route path="/grant/:slug" component={Grant} />
             <Route path="/new-grant" component={GrantFormPage} />
