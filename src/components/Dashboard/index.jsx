@@ -4,6 +4,9 @@ import agent from 'agent';
 import {
   DASHBOARD_PAGE_LOADED,
   DASHBOARD_PAGE_UNLOADED,
+  FETCH_FOUNDATIONS_SUCCESS,
+  FETCH_FOUNDATIONS_ERROR,
+  FETCH_GRANTS_SUCCESS,
 } from 'constants/actionTypes';
 
 import {
@@ -23,10 +26,43 @@ const mapStateToProps = (state) => ({
   token: state.common.token,
 });
 
+const fetchFoundationsByFounderAndGrantsActionCreator = (username) => (dispatch, getState) => {
+  dispatch({
+    type: DASHBOARD_PAGE_LOADED,
+  });
+  // fetch foundations first
+  return agent.Foundations.byFounder(username).then(
+    (res) => {
+      dispatch({
+        type: FETCH_FOUNDATIONS_SUCCESS,
+        payload: res,
+      });
+
+      const { foundations } = getState().dashboard;
+
+      // fetch grant for each foundation
+      foundations.forEach((foundation) => {
+        const foundationName = foundation.name;
+        agent.Grants.byFoundation(foundationName).then(
+          ({ grants }) => {
+            dispatch({
+              type: FETCH_GRANTS_SUCCESS,
+              payload: {
+                foundationName,
+                grants,
+              },
+            });
+          },
+        );
+      });
+    },
+  );
+};
+
 const mapDispatchToProps = (dispatch) => ({
-  onLoad: (payload) => dispatch({
-    type: DASHBOARD_PAGE_LOADED, payload,
-  }),
+  onLoad: (username) => {
+    dispatch(fetchFoundationsByFounderAndGrantsActionCreator(username));
+  },
   onUnload: () => dispatch({
     type: DASHBOARD_PAGE_UNLOADED,
   }),
@@ -34,7 +70,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 class Dashboard extends React.Component {
   componentDidMount() {
-    this.props.onLoad(agent.Foundations.byFounder(this.props.currentUser.username));
+    this.props.onLoad(this.props.currentUser.username);
   }
 
   // componentWillUnmount() {
@@ -49,6 +85,8 @@ class Dashboard extends React.Component {
         New Foundation
       </Button>
     );
+
+    const { foundations, grantsForFoundation } = this.props;
 
     // Be aware when working with antd tabs https://github.com/ant-design/ant-design/issues/17492
     return (
@@ -75,11 +113,16 @@ class Dashboard extends React.Component {
                 </Col>
               </Row>
             </TabPane>
-            {this.props.foundations
-              && this.props.foundations.map(
+            {foundations
+              && foundations.map(
                 (foundation) => (
                   <TabPane tab={foundation.name} key={foundation.name}>
-                    <FoundationTab foundation={foundation} />
+                    {grantsForFoundation && (
+                      <FoundationTab
+                        foundation={foundation}
+                        grants={grantsForFoundation[foundation.name]}
+                      />
+                    )}
                   </TabPane>
                 ),
               )}
