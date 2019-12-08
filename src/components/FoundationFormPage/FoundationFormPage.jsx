@@ -2,27 +2,40 @@
 import React from 'react';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
+import agent from 'agent';
+import { connect } from 'react-redux';
+import { FOUNDATION_CREATION_REQUEST, FOUNDATION_CREATION_SUCCESS, FOUNDATION_CREATION_ERROR } from 'constants/actionTypes';
+import { message } from 'antd';
 
 import {
-  Button, Form,
-} from 'antd';
-import {
-  Select, Input, Radio,
+  Input, SubmitButton, ResetButton, Form,
 } from 'formik-antd';
 
-const { Option } = Select;
-const FormItem = Form.Item;
-const RadioGroup = Radio.Group;
+import TagSelect from '../TagSelect';
 
-const tags = ['science', 'oss', 'biotech', 'tech', 'health',
-  'ai', 'green', 'women', 'development', 'journalism', 'research'];
+const mapStateToProps = (state) => ({
+  isSubmitting: state.foundation.isSubmittingForm,
+});
 
-const tagsChildren = [];
-
-for (let i = 0; i < tags.length; i += 1) {
-  tagsChildren.push(<Option key={tags[i]}>{tags[i]}</Option>);
-}
-
+const submitFormActionCreator = (foundationParams) => (dispatch) => {
+  dispatch({
+    type: FOUNDATION_CREATION_REQUEST,
+  });
+  return agent.Foundations.create(foundationParams).then(
+    ({ foundation }) => {
+      message.success(`Successfully created foundation: ${foundation.name}.`);
+      dispatch({
+        type: FOUNDATION_CREATION_SUCCESS,
+      });
+    },
+    (error) => {
+      message.error(`Could not create foundation. ${error}`);
+      dispatch({
+        type: FOUNDATION_CREATION_ERROR,
+      });
+    },
+  );
+};
 
 // DisplayFormikState is just here for debugging
 const DisplayFormikState = (props) => (
@@ -49,22 +62,15 @@ const formikEnhancer = withFormik({
     description: Yup.string().required('You need to write a few words about your new foundation'),
     website: Yup.string().url('Please provide a valid URL'),
   }),
-  mapPropsToValues: (props) => ({
+  mapPropsToValues: () => ({
     name: '',
     description: '',
     tags: [],
-    existing: '',
     website: '',
   }),
-  handleSubmit: (values, { setSubmitting }) => {
-    const payload = {
-      ...values,
-      // topics: values.topics.map((t) => t.value),
-    };
-    setTimeout(() => {
-      alert(JSON.stringify(payload, null, 2));
-      setSubmitting(false);
-    }, 1000);
+  handleSubmit: (values, { props, setSubmitting }) => {
+    props.dispatch(submitFormActionCreator(values));
+    setSubmitting(false);
   },
   displayName: 'Foundation Form',
 });
@@ -79,8 +85,6 @@ const MyForm = (props) => {
     handleBlur,
     handleSubmit,
     handleReset,
-    setFieldValue,
-    setFieldTouched,
     isSubmitting,
   } = props;
   return (
@@ -88,7 +92,7 @@ const MyForm = (props) => {
       <div style={{ display: 'flex' }}>
         <div style={{ width: 500, margin: 'auto' }}>
 
-          <FormItem>
+          <Form.Item name="foundationItem">
             Name
             <Input
               name="name"
@@ -103,9 +107,9 @@ const MyForm = (props) => {
           <div style={{ color: 'red', marginTop: '.5rem' }}>{errors.name}</div>
             )}
 
-          </FormItem>
+          </Form.Item>
 
-          <FormItem>
+          <Form.Item name="descriptionItem">
             Describe your foundation in a few words
             <Input.TextArea
               name="description"
@@ -117,53 +121,37 @@ const MyForm = (props) => {
         && touched.description && (
           <div style={{ color: 'red', marginTop: '.5rem' }}>{errors.description}</div>
             )}
-          </FormItem>
+          </Form.Item>
 
-          <FormItem>
+          <Form.Item name="tagsItem">
             Which tags describe your foundation best?
-            <Select
-              name="tags"
-              mode="tags"
-              style={{ width: '100%' }}
-              placeholder="E.g. tech, oss or development"
-            >
-              {tagsChildren}
-            </Select>
-          </FormItem>
+            <TagSelect name="tags" />
+          </Form.Item>
 
-          <FormItem>
-          Are you creating a profile in Percolatio for an existing foundation?
-            <RadioGroup name="existing">
-              <Radio value="No">
-                No
-              </Radio>
+          <Form.Item name="websiteItem">
+            (Optional) If you already have a website for the foundation, please provide the URL here
+            <Input
+              name="website"
+              placeholder="http://..."
+            />
+            {errors.website
+        && touched.website && (
+          <div style={{ color: 'red', marginTop: '.5rem' }}>{errors.website}</div>
+            )}
+          </Form.Item>
 
-              <Radio value="Yes">
-                Yes
-                {props.values.existing === 'Yes'
-                  ? (
-                    <Input
-                      name="website"
-                      placeholder="Type your foundation's URL here"
-                      style={{ width: 250, marginLeft: 10 }}
-                    />
-                  ) : null}
-              </Radio>
-            </RadioGroup>
-          </FormItem>
+          <SubmitButton style={{ marginRight: '10px' }} type="primary" disabled={isSubmitting}>
+            Create Foundation
+          </SubmitButton>
 
-          <Button type="primary" disabled={isSubmitting}>
-        Create Foundation
-          </Button>
-
-          <Button
+          <ResetButton
             type="button"
             className="outline"
             onClick={handleReset}
             disabled={!dirty || isSubmitting}
           >
         Reset
-          </Button>
+          </ResetButton>
           <DisplayFormikState {...props} />
 
         </div>
@@ -173,6 +161,6 @@ const MyForm = (props) => {
   );
 };
 
-const FoundationFormPage = formikEnhancer(MyForm);
+const FoundationFormPage = connect(mapStateToProps)(formikEnhancer(MyForm));
 
 export default FoundationFormPage;

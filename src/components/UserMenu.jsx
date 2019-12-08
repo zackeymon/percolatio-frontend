@@ -75,7 +75,6 @@ class UserMenu extends React.Component {
               </Link>
 
             </Menu.Item>
-            <Menu.Item key="setting:6">Privacy & Security</Menu.Item>
             <Menu.Item onClick={this.props.onClickLogout} key="setting:7">Log Out</Menu.Item>
           </Menu.ItemGroup>
         </SubMenu>

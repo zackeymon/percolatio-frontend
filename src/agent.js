@@ -3,8 +3,8 @@ import _superagent from 'superagent';
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-// const API_ROOT = 'http://percdev.eu-west-1.elasticbeanstalk.com/api';
-const API_ROOT = 'http://localhost:8000/api';
+const API_ROOT = 'http://percdev.eu-west-1.elasticbeanstalk.com/api';
+// const API_ROOT = 'http://localhost:8000/api';
 
 const encode = encodeURIComponent;
 const responseBody = (res) => res.body;
@@ -74,7 +74,7 @@ const Grants = {
   get: (slug) => requests.get(`/grants/${slug}`),
   unfavorite: (slug) => requests.del(`/grants/${slug}/favorite`),
   update: (grant) => requests.put(`/grants/${grant.slug}`, { grant: omitSlug(grant) }),
-  create: (grant) => requests.post('/grants', { grant }),
+  create: (grant) => requests.post('/grants', { Grant: grant }),
 };
 
 const Foundations = {
