@@ -3,10 +3,9 @@ import {
   Card,
 } from 'antd';
 
-
-const GrantOverviewCard = () => (
+const GrantOverviewCard = (props) => (
   <Card title="Grant Overview">
-    Grants here
+    {props.grants && props.grants.map((grant) => (<p key={grant.slug}>{grant.slug}</p>))}
   </Card>
 );
 
