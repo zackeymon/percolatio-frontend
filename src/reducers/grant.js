@@ -1,6 +1,9 @@
 import {
   GRANT_PAGE_LOADED,
   GRANT_PAGE_UNLOADED,
+  GRANT_CREATION_REQUEST,
+  GRANT_CREATION_SUCCESS,
+  GRANT_CREATION_ERROR,
 } from '../constants/actionTypes';
 
 export default (state = {}, action) => {
@@ -12,6 +15,14 @@ export default (state = {}, action) => {
       };
     case GRANT_PAGE_UNLOADED:
       return {};
+    case GRANT_CREATION_REQUEST:
+      return { ...state, isSubmittingForm: true };
+    case GRANT_CREATION_SUCCESS:
+    case GRANT_CREATION_ERROR:
+      return {
+        ...state,
+        isSubmittingForm: false,
+      };
     default:
       return state;
   }

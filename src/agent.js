@@ -74,7 +74,7 @@ const Grants = {
   get: (slug) => requests.get(`/grants/${slug}`),
   unfavorite: (slug) => requests.del(`/grants/${slug}/favorite`),
   update: (grant) => requests.put(`/grants/${grant.slug}`, { grant: omitSlug(grant) }),
-  create: (grant) => requests.post('/grants', { grant }),
+  create: (grant) => requests.post('/grants', { Grant: grant }),
 };
 
 const Foundations = {
