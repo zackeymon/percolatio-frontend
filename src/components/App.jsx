@@ -44,7 +44,7 @@ class App extends React.Component {
     super(props);
     const token = window.localStorage.getItem('jwt');
     this.loginForm = Form.create({ name: 'normal_login' })(LoginForm);
-    this.registerForm = Form.create({ name: 'normal_register' })(RegisterForm);
+    this.registerForm = Form.create({ name: 'register' })(RegisterForm);
     if (token) {
       agent.setToken(token);
     }
