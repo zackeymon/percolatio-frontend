@@ -4,30 +4,44 @@ import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import agent from 'agent';
 import { connect } from 'react-redux';
-import { NEW_GRANT } from 'constants/actionTypes';
+import {
+  GRANT_CREATION_ERROR, GRANT_CREATION_REQUEST, GRANT_CREATION_SUCCESS,
+} from 'constants/actionTypes';
 
 import {
-  Form,
+  Form, message,
 } from 'antd';
 import {
-  Select, Input, Radio, InputNumber, SubmitButton, ResetButton, Checkbox,
+  Input, Radio, InputNumber, SubmitButton, ResetButton, Checkbox,
 } from 'formik-antd';
 
-const { Option } = Select;
+import TagSelect from '../TagSelect';
 
-const tags = ['science', 'oss', 'biotech', 'tech', 'health',
-  'ai', 'green', 'women', 'development', 'journalism', 'research'];
-
-const tagsChildren = [];
-
-for (let i = 0; i < tags.length; i += 1) {
-  tagsChildren.push(<Option key={tags[i]}>{tags[i]}</Option>);
-}
 
 const mapStateToProps = (state) => ({
   isSubmitting: state.grant.isSubmittingForm,
   currentUser: state.common.currentUser,
 });
+
+const submitFormActionCreator = (grantParams) => (dispatch) => {
+  dispatch({
+    type: GRANT_CREATION_REQUEST,
+  });
+  return agent.Grants.create(grantParams).then(
+    ({ grant }) => {
+      message.success(`Successfully created grant: ${grant.title}.`);
+      dispatch({
+        type: GRANT_CREATION_SUCCESS,
+      });
+    },
+    (error) => {
+      message.error(`Could not create grant. ${error}.`);
+      dispatch({
+        type: GRANT_CREATION_ERROR,
+      });
+    },
+  );
+};
 
 
 // DisplayFormikState is just here for debugging
@@ -58,7 +72,7 @@ const formikEnhancer = withFormik({
   mapPropsToValues: () => ({
     title: '',
     description: '',
-    tags: [],
+    tagList: [],
     allowDonations: true,
     minAmountPerGrantee: 1000,
     otherAwards: '',
@@ -67,12 +81,7 @@ const formikEnhancer = withFormik({
     FoundationName: '',
   }),
   handleSubmit: (values, { props, setSubmitting }) => {
-    const grantParams = values;
-    console.log(grantParams);
-    props.dispatch({
-      type: NEW_GRANT,
-      payload: agent.Grants.create(grantParams),
-    });
+    props.dispatch(submitFormActionCreator(values));
     setSubmitting(false);
   },
   displayName: 'Grant Form',
@@ -110,13 +119,13 @@ const MyForm = (props) => {
             <Form.Item name="foundationItem">
               Which of your Foundations is issuing the Grant?
               {' '}
-              <Radio.Group name="FoundationName" defaultValue="a" size="large">
+              <Radio.Group name="FoundationName" size="large" buttonStyle="solid">
                 {data.foundations && data.foundations.map(
                   (foundation) => (
-                    <Radio key={foundation.name} value={foundation.name}>
+                    <Radio.Button style={{ margin: '2px' }} key={foundation.name} value={foundation.name}>
                       {foundation.name}
                       {' '}
-                    </Radio>
+                    </Radio.Button>
                   ),
                 )}
               </Radio.Group>
@@ -154,16 +163,9 @@ const MyForm = (props) => {
               )}
             </Form.Item>
 
-            <Form.Item name="tags">
+            <Form.Item name="tagList">
             Which tags describe the grant best?
-              <Select
-                name="tags"
-                mode="tags"
-                style={{ width: '100%' }}
-                placeholder="E.g. tech, oss or development"
-              >
-                {tagsChildren}
-              </Select>
+              <TagSelect />
             </Form.Item>
 
           </fieldset>
@@ -230,7 +232,7 @@ const MyForm = (props) => {
           </fieldset>
 
 
-          <SubmitButton type="primary" disabled={isSubmitting}>
+          <SubmitButton style={{ marginRight: '10px' }} type="primary" disabled={isSubmitting}>
         Create Grant
           </SubmitButton>
 

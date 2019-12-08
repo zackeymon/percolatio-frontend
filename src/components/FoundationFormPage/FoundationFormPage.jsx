@@ -11,7 +11,7 @@ import {
   Input, SubmitButton, ResetButton, Form,
 } from 'formik-antd';
 
-import TagSelect from './TagSelect';
+import TagSelect from '../TagSelect';
 
 const mapStateToProps = (state) => ({
   isSubmitting: state.foundation.isSubmittingForm,
@@ -125,7 +125,7 @@ const MyForm = (props) => {
 
           <Form.Item name="tagsItem">
             Which tags describe your foundation best?
-            <TagSelect />
+            <TagSelect name="tags" />
           </Form.Item>
 
           <Form.Item name="websiteItem">
