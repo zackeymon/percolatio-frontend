@@ -1,3 +1,4 @@
+
 import { connect } from 'react-redux';
 import React from 'react';
 import agent from 'agent';
@@ -10,7 +11,7 @@ import {
 } from 'constants/actionTypes';
 
 import {
-  Row, Tabs, Col, Button, Icon, message,
+  Row, Tabs, Col, Button, Icon,
 } from 'antd';
 import ActionCenterCard from './ActionCenterCard';
 import GrantOverviewCard from './GrantOverviewCard';
