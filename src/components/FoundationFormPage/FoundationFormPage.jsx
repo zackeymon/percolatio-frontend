@@ -4,26 +4,38 @@ import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import agent from 'agent';
 import { connect } from 'react-redux';
-import { NEW_FOUNDATION } from 'constants/actionTypes';
+import { FOUNDATION_CREATION_REQUEST, FOUNDATION_CREATION_SUCCESS, FOUNDATION_CREATION_ERROR } from 'constants/actionTypes';
+import { message } from 'antd';
 
 import {
-  Select, Input, SubmitButton, ResetButton, Form,
+  Input, SubmitButton, ResetButton, Form,
 } from 'formik-antd';
 
-const { Option } = Select;
-
-const tags = ['science', 'oss', 'biotech', 'tech', 'health',
-  'ai', 'green', 'women', 'development', 'journalism', 'research'];
-
-const tagsChildren = [];
-
-for (let i = 0; i < tags.length; i += 1) {
-  tagsChildren.push(<Option key={tags[i]}>{tags[i]}</Option>);
-}
+import TagSelect from './TagSelect';
 
 const mapStateToProps = (state) => ({
   isSubmitting: state.foundation.isSubmittingForm,
 });
+
+const submitFormActionCreator = (foundationParams) => (dispatch) => {
+  dispatch({
+    type: FOUNDATION_CREATION_REQUEST,
+  });
+  return agent.Foundations.create(foundationParams).then(
+    ({ foundation }) => {
+      message.success(`Successfully created foundation: ${foundation.name}.`);
+      dispatch({
+        type: FOUNDATION_CREATION_SUCCESS,
+      });
+    },
+    (error) => {
+      message.error(`Could not create foundation. ${error}`);
+      dispatch({
+        type: FOUNDATION_CREATION_ERROR,
+      });
+    },
+  );
+};
 
 // DisplayFormikState is just here for debugging
 const DisplayFormikState = (props) => (
@@ -57,11 +69,7 @@ const formikEnhancer = withFormik({
     website: '',
   }),
   handleSubmit: (values, { props, setSubmitting }) => {
-    const foundationParams = values;
-    props.dispatch({
-      type: NEW_FOUNDATION,
-      payload: agent.Foundations.create(foundationParams),
-    });
+    props.dispatch(submitFormActionCreator(values));
     setSubmitting(false);
   },
   displayName: 'Foundation Form',
@@ -117,14 +125,7 @@ const MyForm = (props) => {
 
           <Form.Item name="tagsItem">
             Which tags describe your foundation best?
-            <Select
-              name="tags"
-              mode="tags"
-              style={{ width: '100%' }}
-              placeholder="E.g. tech, oss or development"
-            >
-              {tagsChildren}
-            </Select>
+            <TagSelect />
           </Form.Item>
 
           <Form.Item name="websiteItem">
@@ -139,8 +140,8 @@ const MyForm = (props) => {
             )}
           </Form.Item>
 
-          <SubmitButton type="primary" disabled={isSubmitting}>
-        Create Foundation
+          <SubmitButton style={{ marginRight: '10px' }} type="primary" disabled={isSubmitting}>
+            Create Foundation
           </SubmitButton>
 
           <ResetButton

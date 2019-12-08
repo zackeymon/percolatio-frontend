@@ -15,8 +15,12 @@ import {
   SETTINGS_PAGE_UNLOADED,
   LOGIN_PAGE_UNLOADED,
   REGISTER_PAGE_UNLOADED,
+<<<<<<< HEAD
   NEW_FOUNDATION,
   NEW_GRANT,
+=======
+  FOUNDATION_CREATION_SUCCESS,
+>>>>>>> master
 } from '../constants/actionTypes';
 
 const defaultState = {
@@ -60,9 +64,13 @@ export default (state = defaultState, action) => {
       };
     case DELETE_ARTICLE:
       return { ...state, redirectTo: '/' };
+<<<<<<< HEAD
     case NEW_FOUNDATION:
       return { ...state, redirectTo: '/dashboard' };
     case NEW_GRANT:
+=======
+    case FOUNDATION_CREATION_SUCCESS:
+>>>>>>> master
       return { ...state, redirectTo: '/dashboard' };
     case ARTICLE_PAGE_UNLOADED:
     case EDITOR_PAGE_UNLOADED:
