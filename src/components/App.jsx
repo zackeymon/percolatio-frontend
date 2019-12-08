@@ -13,8 +13,8 @@ import Editor from './Editor';
 import Header from './Header/Header';
 import Home from './Home';
 import LoginForm from './Login';
-import Profile from './Profile';
-import ProfileFavorites from './ProfileFavorites';
+import Profile from './Profile/Profile';
+import ProfileFavorites from './Profile/ProfileFavorites';
 import RegisterForm from './Register/Register';
 import Dashboard from './Dashboard';
 import Settings from './Settings';
@@ -78,13 +78,6 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={LandingPage} />
             <Route path="/homehome" component={Home} />
-<<<<<<< HEAD
-            <Route path="/dashboard" component={Dashboard} />
-            <Route path="/login" component={this.loginForm} />
-            <Route path="/register" component={this.registerForm} />
-            <Route path="/editor/:slug" component={Editor} />
-            <Route path="/editor" component={Editor} />
-=======
             <Route
               path="/dashboard"
               render={() => (
@@ -96,9 +89,8 @@ class App extends React.Component {
                   />
                 ))}
             />
-            <Route path="/login" component={Login} />
-            <Route path="/register" component={Register} />
->>>>>>> master
+            <Route path="/login" component={this.loginForm} />
+            <Route path="/register" component={this.registerForm} />
             <Route path="/apply" component={ApplicationFormPage} />
             <Route path="/grant/:slug" component={Grant} />
             <Route path="/new-grant" component={GrantFormPage} />

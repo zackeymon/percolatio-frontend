@@ -106,10 +106,10 @@ class Profile extends React.Component {
           {this.props.profile.username}
         </TabPane>
         <TabPane tab="My Donations" key="2">
-        You have not sponsored any foundation yet
+          You have not sponsored any foundation yet
         </TabPane>
         <TabPane tab="My Applications" key="3">
-        You have not applied to any grant yet
+          You have not applied to any grant yet
         </TabPane>
       </Tabs>
     );
@@ -122,7 +122,7 @@ class Profile extends React.Component {
     }
 
     const isUser = this.props.currentUser
-    && this.props.profile.username === this.props.currentUser.username;
+      && this.props.profile.username === this.props.currentUser.username;
 
     return (
       <div className="profile-page">
