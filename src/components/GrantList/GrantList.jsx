@@ -2,6 +2,7 @@ import React from 'react';
 import ListPagination from 'components/ListPagination';
 import GrantPreview from './GrantPreview';
 
+
 const GrantList = (props) => {
   if (!props.grants) {
     return (

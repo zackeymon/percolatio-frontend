@@ -19,10 +19,9 @@ export default (state = {}, action) => {
         ...state,
         pager: action.pager,
         tags: action.payload[0] ? action.payload[0].tags : [],
-        grants: action.payload[1] ? action.payload[1].grants : [],
-        grantsCount: action.payload[1] ? action.payload[1].grantsCount : [],
+        grants: action.payload[0] ? action.payload[0].grants : [],
+        grantsCount: action.payload[0] ? action.payload[0].grantsCount : [],
         currentPage: 0,
-        tab: action.tab,
       };
     case HOME_PAGE_UNLOADED:
       return {};

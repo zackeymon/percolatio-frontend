@@ -10,7 +10,7 @@ const callback = (key) => {
 
 
 const mapStateToProps = (state) => ({
-  ...state.foundationList,
+  ...state.grantList,
   tags: state.home.tags,
   token: state.common.token,
 });
@@ -20,9 +20,9 @@ const GrantsView = (props) => (
     <div className="feed-toggle">
       <GrantList
         pager={props.pager}
-        foundations={props.foundations}
+        grants={props.grants}
         loading={props.loading}
-        grantsCount={props.foundationsCount}
+        grantsCount={props.grantsCount}
         currentPage={props.currentPage}
       />
     </div>
