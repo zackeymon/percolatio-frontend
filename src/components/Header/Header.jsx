@@ -89,7 +89,6 @@ const LoggedInView = (props) => {
         <li className="nav-item">
           <UserMenu user={props.currentUser.username} style={{ border: '3px' }} />
         </li>
-
       </ul>
     );
   }

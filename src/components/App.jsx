@@ -1,6 +1,6 @@
 import agent from 'agent';
 import React from 'react';
-import { Form } from 'antd';
+import { Form, Layout } from 'antd';
 import { connect } from 'react-redux';
 import { APP_LOAD, REDIRECT } from 'constants/actionTypes';
 import { Route, Switch, Redirect } from 'react-router-dom';
@@ -10,7 +10,7 @@ import LandingPage from 'components/LandingPage';
 import { withRouter } from 'react-router';
 import Article from './Article';
 import Editor from './Editor';
-import Header from './Header/Header';
+// import Header from './Header/Header';
 import Home from './Home';
 import LoginForm from './Login';
 import Profile from './Profile/Profile';
@@ -26,6 +26,14 @@ import Foundation from './Foundation';
 import Foundations from './FoundationsView';
 import Grants from './GrantsView';
 
+import PercSider from './Sider';
+
+import { Menu, Icon } from 'antd';
+
+const { SubMenu } = Menu;
+const { Sider } = Layout;
+
+const { Content } = Layout;
 
 const mapStateToProps = (state) => ({
   appLoaded: state.common.appLoaded,
@@ -67,55 +75,62 @@ class App extends React.Component {
   render() {
     if (this.props.appLoaded) {
       return (
-        <div>
+        <Layout>
           {this.props.location.pathname !== '/'
             && (
-              <Header
-                appName={this.props.appName}
-                currentUser={this.props.currentUser}
-              />
-            )}
-          <Switch>
-            <Route exact path="/" component={LandingPage} />
-            <Route path="/homehome" component={Home} />
-            <Route
-              path="/dashboard"
-              render={() => (
-                this.props.currentUser ? <Dashboard /> : (
-                  <Redirect to={{
-                    pathname: '/login',
-                    state: 'Please sign in',
-                  }}
+              <Layout.Header className="header" style={{ background: 'white' }}>
+                <div className="logo">
+                  <img
+                    href="/"
+                    alt="percolatio logo"
+                    src="https://s3.eu-west-2.amazonaws.com/percolation.images/frontend/logo.png"
+                    height="50%"
+                    width="50%"
                   />
-                ))}
-            />
-            <Route path="/login" component={this.loginForm} />
-            <Route path="/register" component={this.registerForm} />
-            <Route path="/apply" component={ApplicationFormPage} />
-            <Route path="/grant/:slug" component={Grant} />
-            <Route path="/new-grant" component={GrantFormPage} />
-            <Route path="/grant" component={Grants} />
-            <Route path="/new-foundation" component={FoundationFormPage} />
-            <Route path="/foundation/:name" component={Foundation} />
-            <Route path="/foundation" component={Foundations} />
-            <Route path="/article/:id" component={Article} />
-            <Route path="/settings" component={Settings} />
-            <Route path="/@:username/favorites" component={ProfileFavorites} />
-            <Route path="/@:username" component={Profile} />
+                </div>
+              </Layout.Header>
+            )}
 
-            <Route path="/editor/:slug" component={Editor} />
-            <Route path="/editor" component={Editor} />
-          </Switch>
-        </div>
+          <Layout>
+            <PercSider currentUser={this.props.currentUser} />
+            <Content>
+              <Switch>
+                <Route exact path="/" component={LandingPage} />
+                <Route path="/homehome" component={Home} />
+                <Route
+                  path="/dashboard"
+                  render={() => (
+                    this.props.currentUser ? <Dashboard /> : (
+                      <Redirect to={{
+                        pathname: '/login',
+                        state: 'Please sign in',
+                      }}
+                      />
+                    ))}
+                />
+                <Route path="/login" component={this.loginForm} />
+                <Route path="/register" component={this.registerForm} />
+                <Route path="/apply" component={ApplicationFormPage} />
+                <Route path="/grant/:slug" component={Grant} />
+                <Route path="/new-grant" component={GrantFormPage} />
+                <Route path="/grant" component={Grants} />
+                <Route path="/new-foundation" component={FoundationFormPage} />
+                <Route path="/foundation/:name" component={Foundation} />
+                <Route path="/foundation" component={Foundations} />
+                <Route path="/article/:id" component={Article} />
+                <Route path="/settings" component={Settings} />
+                <Route path="/@:username/favorites" component={ProfileFavorites} />
+                <Route path="/@:username" component={Profile} />
+                <Route path="/editor/:slug" component={Editor} />
+                <Route path="/editor" component={Editor} />
+              </Switch>
+            </Content>
+          </Layout>
+        </Layout >
       );
     }
     return (
-      <div>
-        <Header
-          appName={this.props.appName}
-          currentUser={this.props.currentUser}
-        />
-      </div>
+      <div></div>
     );
   }
 }
