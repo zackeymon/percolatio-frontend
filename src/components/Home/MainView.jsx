@@ -37,7 +37,7 @@ const mapStateToProps = (state) => ({
 });
 
 const MainView = (props) => (
-  <div className="col-md-9">
+  <div className="col-md-7">
     <div className="feed-toggle">
       <Tabs size="large" defaultActiveKey="grants" onChange={callback}>
         <TabPane tab="Grants" key="grants">
