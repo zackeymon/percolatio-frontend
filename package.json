@@ -24,6 +24,7 @@
     "query-string": "^6.9.0",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
+    "react-jdenticon": "0.0.8",
     "react-landing-page": "^2.0.2",
     "react-redux": "^5.0.7",
     "react-router": "^4.1.2",
