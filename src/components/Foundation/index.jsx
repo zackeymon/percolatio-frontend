@@ -148,13 +148,6 @@ class Foundation extends React.Component {
             </Row>
 
           </Content>
-          <Footer>
-          Made with
-            {' '}
-            <Icon type="heart" theme="twoTone" twoToneColor="#eb2f96" />
-            {' '}
-          by Percolatio
-          </Footer>
         </Layout>
 
 
