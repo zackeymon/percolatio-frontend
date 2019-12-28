@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import agent from 'agent';
+import { Link } from 'react-router-dom';
 import {
   DASHBOARD_PAGE_LOADED,
   DASHBOARD_PAGE_UNLOADED,
@@ -79,11 +80,13 @@ class Dashboard extends React.Component {
 
   render() {
     const operations = (
-      <Button href="/new-foundation">
-        <Icon type="plus" />
-        {' '}
+      <Link to="/new-foundation">
+        <Button>
+          <Icon type="plus" />
+          {' '}
         New Foundation
-      </Button>
+        </Button>
+      </Link>
     );
 
     const { foundations, grantsForFoundation } = this.props;
