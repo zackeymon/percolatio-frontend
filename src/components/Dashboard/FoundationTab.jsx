@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   Button, Tabs, Icon, Timeline, Radio,
 } from 'antd';
@@ -10,11 +11,13 @@ const FoundationTab = (props) => {
   const { foundation, grants } = props;
 
   const operations = (
-    <Button href="/new-grant">
-      <Icon type="plus" />
-      {' '}
+    <Link to="/new-grant">
+      <Button>
+        <Icon type="plus" />
+        {' '}
       New Grant
-    </Button>
+      </Button>
+    </Link>
   );
 
   function onChange(e) {
@@ -30,7 +33,9 @@ const FoundationTab = (props) => {
         <TabPane tab="Overview" key="overview">
           <p>{foundation.description}</p>
           <p>{foundation.website}</p>
-          <Button href={`/foundation/${foundation.name}`} type="dashed">Visit Foundation profile page</Button>
+          <Link to={`/foundation/${foundation.name}`}>
+            <Button type="dashed">Visit Foundation profile page</Button>
+          </Link>
         </TabPane>
         {grants
               && grants.map(
@@ -72,7 +77,9 @@ const FoundationTab = (props) => {
                       </Radio.Group>
                     </div>
 
-                    <Button href={`/grant/${grant.slug}`} type="dashed">Visit Grant page</Button>
+                    <Link to={`/grant/${grant.slug}`}>
+                      <Button type="dashed">Visit Grant page</Button>
+                    </Link>
                   </TabPane>
                 ),
               )}

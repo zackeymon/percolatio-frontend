@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import agent from 'agent';
+import { Link } from 'react-router-dom';
 import {
   FOUNDATIONS_PAGE_LOADED,
   FOUNDATIONS_PAGE_UNLOADED,
@@ -57,7 +58,9 @@ class Foundations extends React.Component {
                 </h2>
                 <span>
                   <p style={{ color: 'white', 'font-size': '16px' }}>Discover and sponsor foundations you care about. Or create your own.</p>
-                  <Button href="/new-foundation"> Create a Foundation </Button>
+                  <Link to="/new-foundation">
+                    <Button> Create a Foundation </Button>
+                  </Link>
                 </span>
               </div>
             </div>

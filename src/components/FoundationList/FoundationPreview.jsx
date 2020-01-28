@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-  Button, Card, Avatar, Row, Col, Typography, 
+  Button, Card, Avatar, Row, Col, Typography,
 } from 'antd';
 import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
@@ -33,9 +33,7 @@ const getAction = () => {
   return possibleActions[Math.floor(Math.random() * possibleActions.length)];
 };
 
-const formatDate = (date) => {
-  return "March 2019";
-}
+const formatDate = (date) => 'March 2019';
 
 
 const FoundationPreview = (props) => {
@@ -76,7 +74,7 @@ const FoundationPreview = (props) => {
         <div>
           <Link to={`/foundation/${name}`}>
             <Button type="primary">Sponsor</Button>
-          </Link> 
+          </Link>
           {' '}
           <Link to={`/foundation/${name}`}>
 
@@ -87,35 +85,35 @@ const FoundationPreview = (props) => {
 )}
 
     >
-    <div>
-      <Row>
-        <Col span={8} type="flex" justify="space-around" align="center">
-          <Jdenticon size="80" value={`${foundation.name}`} />
-          <div>
-            <strong>Created at:</strong>
-            {' '}
-            {formatDate(foundation.createdAt)}
-          </div>
-        </Col>
-        <Col span={12} type="flex">
-          <Row>
-            <Link to={`/foundation/${foundation.name}`} className="preview-link">
-              <Title level={4}>
-                {titleCase(foundation.name)}
-              </Title>
-            </Link>
-          </Row>
-          <Row>
-            <Text>
-              {foundation.description}
-              <Link to={`/foundation/${foundation.slug}`}>
-                ...
+      <div>
+        <Row>
+          <Col span={8} type="flex" justify="space-around" align="center">
+            <Jdenticon size="80" value={`${foundation.name}`} />
+            <div>
+              <strong>Created at:</strong>
+              {' '}
+              {formatDate(foundation.createdAt)}
+            </div>
+          </Col>
+          <Col span={12} type="flex">
+            <Row>
+              <Link to={`/foundation/${foundation.name}`} className="preview-link">
+                <Title level={4}>
+                  {titleCase(foundation.name)}
+                </Title>
               </Link>
-            </Text>
-          </Row>
-          <Row>
-            <ul className="tag-list">
-              {
+            </Row>
+            <Row>
+              <Text>
+                {foundation.description}
+                <Link to={`/foundation/${foundation.slug}`}>
+                ...
+                </Link>
+              </Text>
+            </Row>
+            <Row>
+              <ul className="tag-list">
+                {
                 foundation.tagList.map((tag) => (
                   <li
                     className="tag-default tag-pill tag-outline"
@@ -125,35 +123,35 @@ const FoundationPreview = (props) => {
                   </li>
                 ))
               }
-            </ul>
-          </Row>
-          <Row style={{ height: '100%' }} align="bottom">
-            {titleCase(foundation.name)}
-            {' '}
+              </ul>
+            </Row>
+            <Row style={{ height: '100%' }} align="bottom">
+              {titleCase(foundation.name)}
+              {' '}
             has currently
-            {' '}
-            <Text strong>{Math.floor(Math.random() * 3)}</Text>
-            {' '}
+              {' '}
+              <Text strong>{Math.floor(Math.random() * 3)}</Text>
+              {' '}
             active grants.
-          </Row>
-        </Col>
-      </Row>
-      <Row style={{ marginTop: '30px' }}>
-        <Col span={6} type="flex" justify="space-around" align="middle">
-          <Button icon="read" style={{ border: 'None' }} />
-        </Col>
-        <Col span={6} type="flex" justify="space-around" align="middle">
-          <Button icon="share-alt" style={{ border: 'None' }} />
-        </Col>
-        <Col span={6} type="flex" justify="space-around" align="middle">
-          <Button icon="heart" style={{ border: 'None' }} />
-        </Col>
-        <Col span={6} type="flex" justify="space-around" align="middle">
-          <Button icon="dollar" style={{ border: 'None' }} />
-        </Col>
-      </Row>
-    </div>
-  </Card>
+            </Row>
+          </Col>
+        </Row>
+        <Row style={{ marginTop: '30px' }}>
+          <Col span={6} type="flex" justify="space-around" align="middle">
+            <Button icon="read" style={{ border: 'None' }} />
+          </Col>
+          <Col span={6} type="flex" justify="space-around" align="middle">
+            <Button icon="share-alt" style={{ border: 'None' }} />
+          </Col>
+          <Col span={6} type="flex" justify="space-around" align="middle">
+            <Button icon="heart" style={{ border: 'None' }} />
+          </Col>
+          <Col span={6} type="flex" justify="space-around" align="middle">
+            <Button icon="dollar" style={{ border: 'None' }} />
+          </Col>
+        </Row>
+      </div>
+    </Card>
   );
 };
 

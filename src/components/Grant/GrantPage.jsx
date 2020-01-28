@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   Layout, Row, Col, Avatar, Button, Icon,
 } from 'antd';
@@ -33,11 +34,15 @@ const GrantPage = (props) => {
           <Row type="flex" justify="space-around" align="middle">
 
             <Col span={4} offset={4}>
-              <Button href="/apply" size="large" type="primary">Apply</Button>
+              <Link to="/apply">
+                <Button size="large" type="primary">Apply</Button>
+              </Link>
             </Col>
 
             <Col span={5} offset={1}>
-              <Button href="/apply">About this foundation</Button>
+              <Link to="/apply">
+                <Button>About this foundation</Button>
+              </Link>
             </Col>
           </Row>
 

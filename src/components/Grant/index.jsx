@@ -1,6 +1,6 @@
-
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import agent from 'agent';
 import { GRANT_PAGE_LOADED, GRANT_PAGE_UNLOADED } from 'constants/actionTypes';
 import {
@@ -47,8 +47,9 @@ class Grant extends React.Component {
                 <Col span={7} offset={4}>
                   <h1>{this.props.grant.title}</h1>
                   <div>
-                    <Button href="/apply" size="large" type="primary">Apply</Button>
-
+                    <Link to="/apply">
+                      <Button size="large" type="primary">Apply</Button>
+                    </Link>
                   </div>
                 </Col>
 
@@ -62,7 +63,9 @@ class Grant extends React.Component {
                     />}
                   </div>
                   <div className="button_foundation">
-                    <Button href="/apply">About this foundation</Button>
+                    <Link to="/apply">
+                      <Button>About this foundation</Button>
+                    </Link>
                   </div>
 
                 </Col>
